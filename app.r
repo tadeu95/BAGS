@@ -11,9 +11,11 @@
 
 #RUN FROM GITHUB:
 #1
-#RUN: library(shiny)
+#RUN:
+#library(shiny)
 #2
-#RUN: runGitHub("BAGs", "tadeu95")
+#RUN: 
+#runGitHub("BAGs", "tadeu95")
 
 ##### LOAD NECESSARY PACKAGES 
 library(seqRFLP)
@@ -115,7 +117,7 @@ grades2<-function(groups){
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
 
-####IMPLEMENT RANKING SYSTEM FOR AQUATIC TAXA 
+####IMPLEMENT RANKING SYSTEM FOR NON-MARINE TAXA
 grades3<-function(groups){
   taxon<-bold_seqspec(taxon=groups, format = "tsv", marker="COI-5P")
   taxon2<-taxon[taxon$markercode=="COI-5P",]
@@ -130,7 +132,7 @@ grades3<-function(groups){
   taxon3$species_name<-gsub("[1-9]+", "", taxon3$species_name)
   taxon3=subset(taxon3, lengths(gregexpr("\\w+", taxon3$species_name)) > 1)
   taxon4<-wormsbynames(as.character(taxon3$species_name), marine_only=FALSE, ids=TRUE)
-  taxon5<-subset(taxon4, taxon4$isFreshwater=="1" | taxon4$isMarine=="1" | taxon4$isBrackish=="1")
+  taxon5<-subset(taxon4, taxon4$isMarine!="1")
   taxon6<-subset(taxon3,as.character(taxon3$species_name)%in% as.character(taxon5$name))
   np=(str_count(taxon6$nucleotides, "N")/str_count(taxon6$nucleotides, "[A-Z]"))*100
   n_percent=np
@@ -289,93 +291,7 @@ grades<-function(groups){
   taxon19$species_frequency=NULL
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
-#####IMPLEMENT GRADE SYSTEM FOR FRESHWATER TAXA
-grades4<-function(groups){
-  taxon<-bold_seqspec(taxon=groups, format = "tsv", marker="COI-5P")
-  taxon2<-taxon[taxon$markercode=="COI-5P",]
-  taxon2<-taxon2[(!(is.na(taxon2$lat)) | taxon2$country!="") & (taxon2$species_name!=""),]
-  taxon2$number<-str_count(taxon2$nucleotides, pattern="[A-Z]")
-  taxon3<-taxon2[(taxon2$number>499),]
-  taxon3$species_name<-gsub("sp.", "", taxon3$species_name)
-  taxon3$species_name<-gsub("sp. nov", "", taxon3$species_name)
-  taxon3$species_name<-gsub("cf.", "", taxon3$species_name)
-  taxon3$species_name<-gsub("complex.", "", taxon3$species_name)
-  taxon3$species_name<-gsub("cmplx.", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[1-9]+", "", taxon3$species_name)
-  taxon3=subset(taxon3, lengths(gregexpr("\\w+", taxon3$species_name)) > 1)
-  taxon4<-wormsbynames(as.character(taxon3$species_name), marine_only=FALSE, ids=TRUE)
-  taxon5<-subset(taxon4,taxon4$isFreshwater=="1")
-  taxon6<-subset(taxon3,as.character(taxon3$species_name)%in% as.character(taxon5$name))
-  np=(str_count(taxon6$nucleotides, "N")/str_count(taxon6$nucleotides, "[A-Z]"))*100
-  n_percent=np
-  taxon6$n_percent=np
-  taxon7<-subset(taxon6,taxon6$n_percent<1)
-  taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid)
-  names(taxon8)<-c("species_name","BIN","nucleotides","country","family","order","class","sampleid","processid")
-  taxon8$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon8$nucleotides)
-  taxon8$nucleotides=gsub("-","",taxon8$nucleotides)
-  taxon8<-taxon8[!(taxon8$BIN == "" | is.na(taxon8$BIN)), ]
-  num_species=table(taxon8$species_name)
-  num_species=as.data.frame(num_species)
-  names(num_species)=c("species","frequency_species")
-  taxon8$grade=NA
-  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","grade")
-  taxon9<-inner_join(taxon8,num_species)
-  taxon9$base_number=str_count(taxon9$sequence, pattern="[A-Z]")
-  taxon9=data.frame(taxon9$species,taxon9$BIN,taxon9$sequence,taxon9$country,taxon9$grade,taxon9$frequency_species,taxon9$base_number,taxon9$family,taxon9$order,taxon9$class,taxon9$sampleid,taxon9$processid)
-  names(taxon9)=c("species","BIN","sequence","country","grade","species_frequency","base_number","family","order","class","sampleid","processid")
-  taxon10<-taxon9%>% 
-    group_by(species) %>%
-    summarise(occurrence = n_distinct(BIN),
-              BIN = str_c(unique(BIN), collapse = ","))
-  names(taxon10)<-c("species","bin_per_species","BIN")
-  taxon11<-taxon9%>% 
-    group_by(BIN) %>%
-    summarise(occurrence = n_distinct(species),
-              species = str_c(unique(species), collapse = ","))
-  names(taxon11)<-c("BIN","species_per_bin","species")
-  taxon16<-full_join(taxon9,taxon10,by = "species")
-  taxon17<-data.frame(taxon16$species,taxon16$BIN.x,taxon16$sequence,taxon16$country,taxon16$grade,taxon16$species_frequency,taxon16$base_number,taxon16$bin_per_species,taxon16$family,taxon16$order,taxon16$class,taxon16$sampleid,taxon16$processid)
-  names(taxon17)<-c("species","BIN","COI_sequence","country","grade","species_frequency","base_number","BIN_per_species","family","order","class","sampleid","processid")
-  taxon18<-full_join(taxon17,taxon11,by="BIN")
-  colnames(taxon18)[colnames(taxon18)=="species.x"]<- "species"
-  taxon18$species.y<-NULL
-  taxon19<-taxon18 %>%
-    mutate(grade = ifelse(species_frequency<3,"D",
-                          ifelse(BIN_per_species==1 & species_per_bin==1 & species_frequency>10,"A",
-                                 ifelse(BIN_per_species==1 & species_per_bin==1,"B",
-                                        ifelse(BIN_per_species>1 & species_per_bin==1,"C",
-                                               ifelse(species_per_bin>1,"E",NA)) ))))
-  taxon19<-taxon19 %>% left_join(taxon19 %>% 
-                                   group_by(species) %>% 
-                                   summarize(sum_e = sum(grade=='E')),by='species') %>%
-    mutate(grade = ifelse(sum_e>0,"E",grade))
-  taxon19<-taxon19 %>% left_join(taxon19 %>% 
-                                   group_by(species) %>% 
-                                   summarize(sum_b=sum(grade=='B')),by='species') %>%
-    mutate(grade = ifelse(sum_b>0,"B",grade))
-  taxon19<-taxon19 %>% left_join(taxon19 %>% 
-                                   group_by(species) %>% 
-                                   summarize(sum_a=sum(grade=='A')),by='species') %>%
-    mutate(grade = ifelse(sum_a>0,"A",grade))
-  taxon19<-taxon19 %>% left_join(taxon19 %>% 
-                                   group_by(species) %>% 
-                                   summarize(sum_c=sum(grade=='C')),by='species') %>%
-    mutate(grade = ifelse(sum_c>0,"C",grade))
-  taxon19<-taxon19 %>% left_join(taxon19 %>% 
-                                   group_by(species) %>% 
-                                   summarize(sum_d=sum(grade=='D')),by='species') %>%
-    mutate(grade = ifelse(sum_d>0,"D",grade))
-  taxon19$sum_a=NULL
-  taxon19$sum_d=NULL
-  taxon19$sum_c=NULL
-  taxon19$sum_b=NULL
-  taxon19$sum_e=NULL
-  taxon19$BIN_per_species=NULL
-  taxon19$species_per_bin=NULL
-  taxon19$species_frequency=NULL
-  assign('taxon19',taxon19,envir=.GlobalEnv)
-}
+
 ###Barplot of the frequency of each grade assigned.
 
 #Specimens
@@ -420,7 +336,7 @@ plot_summary_species=function(taxon19){
 create_A=function(taxon19){
   taxon_a=taxon19[taxon19$grade=="A",]
   taxon_a$sum_e<-NULL
-  taxon_a$name=paste(taxon_a$species,taxon_a$BIN,sep=" | ")
+  taxon_a$name=paste(taxon_a$species,taxon_a$BIN,taxon_a$sampleid,sep=" | ")
   taxon_a2<-data.frame(taxon_a$name,taxon_a$COI_sequence)
   names(taxon_a2)<-c("name","sequence")
   assign('taxon_a2',taxon_a2,envir=.GlobalEnv)
@@ -429,7 +345,7 @@ create_A=function(taxon19){
 #Only grades A and B
 create_AB=function(taxon19){
   taxon_ab=taxon19[taxon19$grade=="A" | taxon19$grade=="B",]
-  taxon_ab$name=paste(taxon_ab$species,taxon_ab$BIN,sep=" | ")
+  taxon_ab$name=paste(taxon_ab$species,taxon_ab$BIN,taxon_ab$sampleid,sep=" | ")
   taxon_ab2<-data.frame(taxon_ab$name,taxon_ab$COI_sequence)
   names(taxon_ab2)<-c("name","sequence")
   assign('taxon_ab2',taxon_ab2,envir=.GlobalEnv)
@@ -438,7 +354,7 @@ create_AB=function(taxon19){
 #Only grades A , B and C
 create_ABC=function(taxon19){
   taxon_abc=taxon19[taxon19$grade=="A" | taxon19$grade=="B" | taxon19$grade=="C",]
-  taxon_abc$name=paste(taxon_abc$species,taxon_abc$BIN,sep=" | ")
+  taxon_abc$name=paste(taxon_abc$species,taxon_abc$BIN,taxon_abc$sampleid,sep=" | ")
   taxon_abc2<-data.frame(taxon_abc$name,taxon_abc$COI_sequence)
   names(taxon_abc2)<-c("name","sequence")
   assign('taxon_abc2',taxon_abc2,envir=.GlobalEnv)
@@ -446,7 +362,7 @@ create_ABC=function(taxon19){
 #Only grades A , B , C and D
 create_ABCD=function(taxon19){
   taxon_abcd=taxon19[taxon19$grade=="A" | taxon19$grade=="B" | taxon19$grade=="C" | taxon19$grade=="D",]
-  taxon_abcd$name=paste(taxon_abcd$species,taxon_abcd$BIN,sep=" | ")
+  taxon_abcd$name=paste(taxon_abcd$species,taxon_abcd$BIN,taxon_abcd$sampleid,sep=" | ")
   taxon_abcd2<-data.frame(taxon_abcd$name,taxon_abcd$COI_sequence)
   names(taxon_abcd2)<-c("name","sequence")
   assign('taxon_abc2',taxon_abcd2,envir=.GlobalEnv)
@@ -454,7 +370,7 @@ create_ABCD=function(taxon19){
 
 #All grades
 create_fasta=function(taxon19){
-  taxon19$name=paste(taxon19$species, taxon19$BIN, sep=" | ")
+  taxon19$name=paste(taxon19$species, taxon19$BIN,taxon19$sampleid, sep=" | ")
   taxon20<-data.frame(taxon19$name,taxon19$COI_sequence)
   names(taxon20)<-c("name","sequence")
   assign('taxon20',taxon20,envir=.GlobalEnv)
@@ -485,7 +401,7 @@ ui <- navbarPage(title=tags$em(tags$b("BAGs: Barcode, Audit & Grade system v1.0"
   fluidRow(
   column(9,
   tags$div(style="text-align:justify",tags$h3(tags$strong("Motivation")),
-  tags$h4(tags$p("The purpose of this web app is to, given one or more taxonomic groups present at the",tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),"perform post barcoding auditing and annotation of a 
+  tags$h4(tags$p("The purpose of this web application is to, given one or more taxonomic groups present at the",tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),"perform post barcoding auditing and annotation of a 
                                                      DNA barcode reference library
                                                      of COI-5P sequences, in a semi-automated way. Subsequently, qualitative grades from A-E are assigned to each species present in the reference library, according to the quality and availability of the data.
                                                      ",tags$br(),tags$br(),
@@ -502,10 +418,10 @@ ui <- navbarPage(title=tags$em(tags$b("BAGs: Barcode, Audit & Grade system v1.0"
                                                       tags$br(), tags$br(),
                                                     
                                           
-                                                      "The app has four main options: download a tsv library for every species belonging to the taxa;
-                                                    download a tsv library for only aquatic species belonging to the taxa;
-                                                    download a tsv library for only marine species belonging to the taxa;
-                                                    and download a tsv library for only fresh water species belonging to the taxa.",tags$br(),tags$br(),
+                                                      "The app has three main options: download a tsv library for every species belonging to the taxa;
+                                                    download a tsv library for only marine species belonging to the taxa; and
+                                                    download a tsv library for only non-marine species belonging to the taxa;
+                                                    ",tags$br(),tags$br(),
                                                     "Then, after you enter the name of the taxonomic group in one of the four download fields, a data set
                                                      will be created and curated following these steps:", tags$br(),
                  tags$div(style="text-align:justify",tags$ol(
@@ -516,9 +432,9 @@ ui <- navbarPage(title=tags$em(tags$b("BAGs: Barcode, Audit & Grade system v1.0"
                                                                                   tags$li("Ambiguous characters occasionally present in the species name and COI-5P sequences"),tags$br(),
                                                                                   tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most common
                                                                                           ambiguous character"))),tags$br(), 
-                   tags$li("In the case of the aquatic, marine and fresh water taxa options, the data set is filtered once again, retaining only the species known to be from those habitats, using their species name as reference.
+                   tags$li("In the case of the marine and non-marine taxa options, the data set is filtered once again, retaining only the species known to be from those habitats, using their species name as reference.
                            This is achieved using the", tags$a(href="http://www.marinespecies.org/","WoRMS database,",target="_blank"),"therefore, the download and annotation will take longer."), tags$br(),
-                   tags$li("Lastly, according to the quality and availability of the data and metadata of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
+                   tags$li("Lastly, according to the quality and availability of the data of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
                            Then, several reference libraries in fasta format are created, which can be downloaded individually."))))))),column(3,align="center",tags$br(),tags$br(),
                 div(style="display:inline-block",tags$img(src='http://biodiversitygenomics.net/site/wp-content/uploads/2016/01/logo_bold.png', width = "250px", height ="165px"),
                   tags$br(),
@@ -553,23 +469,19 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br())))))),
 
   tabPanel(title="SELECT TAXA FOR AUDITING",
            #NORMAL
-           tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("GENERAL TAXA"))),tags$br(),column(12,align="center",tags$span(icon("globe-africa","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for all species"))))),tags$br(),
+           tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("ALL TAXA"))),tags$br(),column(12,align="center",tags$span(icon("globe-africa","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for all species"))))),tags$br(),
                textInputAddon(inputId="taxa2",addon=icon("search"),width="500px",label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Carnivora"),
                downloadBttn("downloadData_2",size="sm","Download"))),
-            #AQUATIC
-            tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("AQUATIC TAXA"))),tags$br(),column(12,align="center",tags$span(icon("fish","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for aquatic species"))))),tags$br(),textInputAddon(inputId="taxa3",addon=icon("search"),width="500px",
-                label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Nemacheilidae,Balitoridae"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: The filtering of the aquatic species is fully done according to the data present at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+               #MARINE  
+               tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("MARINE TAXA"))),tags$br(),column(12,align="center",tags$span(icon("fish","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for marine species"))))),tags$br(),
+                                                                                                         textInputAddon(inputId="taxa",addon=icon("search"),width="500px",
+                                                                                                                        label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: The filtering of the marine species is fully done according to the data present at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+                                                                                                         downloadBttn("downloadData",size="sm","Download"))),
+            #NON MARINE
+            tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("NON-MARINE TAXA"))),tags$br(),column(12,align="center",tags$span(icon("fish","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for non-marine species"))))),tags$br(),textInputAddon(inputId="taxa3",addon=icon("search"),width="500px",
+                label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes,Nemacheilidae,Balitoridae"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: The filtering of the aquatic species is fully done according to the data present at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
                 downloadBttn("downloadData_3",size="sm","Download"))),
-            #MARINE  
-             tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("MARINE TAXA"))),tags$br(),column(12,align="center",tags$span(icon("fish","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for marine species"))))),tags$br(),
-              textInputAddon(inputId="taxa",addon=icon("search"),width="500px",
-              label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: The filtering of the marine species is fully done according to the data present at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-              downloadBttn("downloadData",size="sm","Download"))),
-            #FRESH WATER  
-             tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("FRESH WATER TAXA"))),tags$br(),column(12,align="center",tags$span(icon("fish","fa-3x"),style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download and audit data set for fresh water species"))))),tags$br(),
-               textInputAddon(inputId="taxa4",addon=icon("search"),width="500px",
-               label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes,Bithyniidae,Acipenseriformes "),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: The filtering of the fresh water species is fully done according to the data present at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-               downloadBttn("downloadData_4",size="sm","Download"))),
+
             #SPECIFIC
             tabPanel(tags$span(style="color:#e62e00",tags$h4(tags$b("SUBSET BY GRADE"))),tags$br(),tags$br(),
                      fluidRow(tags$span(style="color:#000000", tags$h3(align="center",tags$u(tags$em(tags$strong("Subset the original data set"))))), tags$br(),
@@ -752,7 +664,7 @@ server <- function(input, output){
     },
     content = function(file) {
       shiny::withProgress(
-        message=paste0("Downloading and annotating dataset for  ",to_upper_camel_case(input$taxa3,sep_out=",")), detail='This may take several minutes',
+        message=paste0("Downloading and annotating dataset for non-marine",to_upper_camel_case(input$taxa3,sep_out=",")), detail='This may take several minutes',
         value=0,
         {
           shiny::incProgress(1/10)
@@ -772,7 +684,7 @@ server <- function(input, output){
     },
     content = function(file) {
       shiny::withProgress(
-        message=paste0("Downloading and annotating dataset for  ",to_upper_camel_case(input$taxa,sep_out=",")), detail='This may take several minutes',
+        message=paste0("Downloading and annotating dataset for marine",to_upper_camel_case(input$taxa,sep_out=",")), detail='This may take several minutes',
         value=0,
         {
           shiny::incProgress(1/10)
@@ -784,33 +696,15 @@ server <- function(input, output){
     }
   )
 ############### DOWNLOAD FRESH WATER TSV 
-  taxaInput_4 <- reactive({grades4(unlist(strsplit(input$taxa4, ",")))})
-  output$downloadData_4 <- downloadHandler(
-    filename = function() {
-      paste(to_upper_camel_case(input$taxa4,sep_out=","), ".tsv")
-    },
-    content = function(file) {
-      shiny::withProgress(
-        message=paste0("Downloading and annotating dataset for  ",to_upper_camel_case(input$taxa4,sep_out=",")), detail='This may take several minutes',
-        value=0,
-        {
-          shiny::incProgress(1/10)
-          Sys.sleep(1)
-          shiny::incProgress(4/10)
-          write_tsv(taxaInput_4(), file)
-        }
-      )
-    }
-  ) 
+
 ####### SUMMARIES EVENTS
   summary_reac<-eventReactive(input$clicks3,{
 
     tagList(  
       
       tags$span(style="color:#2e2e1f",tags$h4(tags$strong(paste0("Taxa name: ",to_upper_camel_case(input$taxa2,sep_out=",")))),
-                tags$h4(tags$strong(paste0("Aquatic taxa name: ",to_upper_camel_case(input$taxa3,sep_out=",")))),
-                tags$h4(tags$strong(paste0("Marine taxa name: ",to_upper_camel_case(input$taxa,sep_out=",")))),
-                tags$h4(tags$strong(paste0("Fresh water taxa name: ",to_upper_camel_case(input$taxa4,sep_out=","))))
+                tags$h4(tags$strong(paste0("Non-marine taxa name: ",to_upper_camel_case(input$taxa3,sep_out=",")))),
+                tags$h4(tags$strong(paste0("Marine taxa name: ",to_upper_camel_case(input$taxa,sep_out=","))))
                 
                 
                 ),tags$br(),
