@@ -845,11 +845,9 @@ server <- function(input, output){
     content = function(file) {
       shiny::withProgress(
         message=paste0("Downloading and annotating dataset for species list"), detail='This may take several minutes',
-        value=0,
+        value=10,
         {
-          shiny::incProgress(1/10)
-          Sys.sleep(1)
-          shiny::incProgress(4/10)
+          shiny::incProgress(10/10)
           write_tsv(taxaInput_10(), file)
         }
       )
@@ -864,11 +862,9 @@ server <- function(input, output){
     content = function(file) {
       shiny::withProgress(
         message=paste0("Downloading and annotating dataset for ",to_upper_camel_case(input$taxa2,sep_out=",")), detail='This may take several minutes',
-        value=0,
+        value=10,
         {
-          shiny::incProgress(1/10)
-          Sys.sleep(1)
-          shiny::incProgress(4/10)
+          shiny::incProgress(10/10)
           write_tsv(taxaInput_2(), file)
         }
       )
@@ -884,11 +880,9 @@ server <- function(input, output){
     content = function(file) {
       shiny::withProgress(
         message=paste0("Downloading and annotating dataset for marine ",to_upper_camel_case(input$taxa,sep_out=",")), detail='This may take several minutes',
-        value=0,
+        value=10,
         {
-          shiny::incProgress(1/10)
-          Sys.sleep(1)
-          shiny::incProgress(4/10)
+          shiny::incProgress(10/10)
           write_tsv(taxaInput(), file)
         }
       )
@@ -903,11 +897,9 @@ server <- function(input, output){
     content = function(file) {
       shiny::withProgress(
         message=paste0("Downloading and annotating dataset for non-marine ",to_upper_camel_case(input$taxa_non,sep_out=",")), detail='This may take several minutes',
-        value=0,
+        value=10,
         {
-          shiny::incProgress(1/10)
-          Sys.sleep(1)
-          shiny::incProgress(4/10)
+          shiny::incProgress(10/10)
           write_tsv(taxaInput_non(), file)
         }
       )
@@ -1130,3 +1122,4 @@ server <- function(input, output){
 
 ############## RUNNING THE APP
 shinyApp(ui=ui,server=server)
+
