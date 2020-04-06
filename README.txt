@@ -1,5 +1,28 @@
 This is a small tutorial on how to host and use the app in your own R environment
 
+How to run the app from github:
+
+1-Download and install the most suited version of R for your computer at https://www.r-project.org/
+
+2-(Optional) Download and install Rstudio at https://rstudio.com/products/rstudio/download/
+
+3- Open RGui or RStudio
+
+4-Install the packages by running the following line of code:
+
+install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets"))
+
+5- Run the following line of code to load the package "shiny":
+
+library(shiny)
+
+6- Launch the app by running:
+
+runGitHub("BAGS", "tadeu95")
+
+7-You can now start using BAGS.
+
+
 How to launch the app by manually downloading the app file to your computer:
 
 1-Download and install the most suited version of R for your computer at https://www.r-project.org/
@@ -17,20 +40,5 @@ install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fing
 6-After running the script, a window with the app will pop up, and you can click "open in browser" to run the app in your default browser if you're on RStudio. 
 If you're on RGui, the app will automatically open in your default browser.
 
-7-You can now start using the app, all instructions to do so will be present in the app itself.
+7-You can now start using BAGS.
 
-How to run the app from github:
-
-1- Open RGui or RStudio
-
-2-Install the packages by running the following line of code:
-
-install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets"))
-
-3- Run the following line of code to load the package "shiny":
-
-library(shiny)
-
-4- Launch the app by running:
-
-runGitHub("BAGs", "tadeu95")
