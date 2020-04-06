@@ -1,4 +1,4 @@
-# _ BAGS: Barcode, Audit & Grade System _
+# *BAGS: Barcode, Audit & Grade System*
 
 ## **How to host BAGS locally in your R environment**
 
