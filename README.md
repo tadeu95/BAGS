@@ -2,7 +2,7 @@
 
 ## **How to host BAGS locally in your R environment**
 
-### How to run from GitHub:
+### Running BAGS from GitHub:
 
 1. Download and install the most suited version of [R for your operating system.](https://www.r-project.org/)
 
@@ -21,7 +21,7 @@ library(shiny)
 runGitHub("BAGS", "tadeu95")
 ```
 
-### How to run by manually downloading the app file to your computer:
+### Running BAGS by manually downloading the app file to your computer:
 
 1. Download and install the most suited version of [R for your operating system.](https://www.r-project.org/)
 
