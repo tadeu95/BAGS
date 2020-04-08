@@ -89,9 +89,9 @@ grades_checklist<-function(checklist){
   taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
   taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
-  taxon6=taxon3
+  taxon6<-taxon3
   #FILTER BY MARINE
-  taxon7=taxon6
+  taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
   taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
@@ -192,9 +192,9 @@ grades2<-function(groups){
   taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
   taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
-  taxon6=taxon3
+  taxon6<-taxon3
   #FILTER BY MARINE
-  taxon7=taxon6
+  taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
   taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
@@ -303,7 +303,7 @@ grades<-function(groups){
   taxon5<-subset(taxon4, taxon4$isMarine==1 | taxon4$isBrackish==1)
   taxon3<-left_join(taxon3,taxon5,by="species_name")
   taxon6<-subset(taxon3,as.character(taxon3$species_name)%in% as.character(taxon5$species_name))
-  taxon7=taxon6
+  taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon,taxon7$new_name)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
   taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
@@ -412,7 +412,7 @@ grades_nonmarine<-function(groups){
   taxon5b<-subset(taxon5, taxon5$isBrackish!=1)
   taxon3<-left_join(taxon3,taxon5b,by="species_name")
   taxon6<-subset(taxon3,(as.character(taxon3$species_name)%in% as.character(taxon5b$species_name)))
-  taxon7=taxon6
+  taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon,taxon7$new_name)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
   taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
@@ -615,63 +615,66 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v0.1"
     direction = "top"
   ),
       
-  tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System"))))),  tags$hr(), tags$br(),
+  fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
+           column(2,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"))),column(1,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "193px", height ="66")))),  tags$hr(), tags$br(),
   fluidRow(
   column(9,
-  tags$div(style="text-align:justify",tags$h3(tags$strong(tags$em("Motivation"))),
+  tags$div(style="text-align:justify",tags$h4(tags$strong("OVERVIEW")),
   tags$h4(tags$p("The purpose of BAGs is to, given one or more taxonomic groups present at the",tags$a(href="http://www.boldsystems.org/","BOLD Systems database",target="_blank"),", or a species list in the form of a tsv file, mine and subsequently
   perform post barcoding auditing and annotation of a 
                                                      DNA barcode reference library
-                                                     of COI-5P sequences in an automated way. This process includes a set of different tools and options, namely: the data mining and library compilation, the optional filtering of only marine or non-marine species, the sorting of libraries in fasta format by grade, as well as a text and graphical report of the library creation.
-                                                     ",tags$br(),tags$br(),
-                                                     "BAGs comes as a response to the fact that DNA barcode reference libraries are prone to several types of errors and inconsistencies. These can arise at any
+                                                     of COI-5P sequences in an automated way.",tags$br(),tags$br(),"BAGs comes as a response to the fact that DNA barcode reference libraries are prone to several types of errors and inconsistencies. These can arise at any
                                                     moment, from the collection and identification of the specimen, through the DNA sequencing and subsequent update of the data to biological databases, thus becoming potential liabilities for scientific
-                                                    studies which use DNA barcodes as their basis, such as metabarcoding. Therefore, this system allows the user to generate reference libraries which point out incongruencies between the species names and the sequences clustered in BINs, optimizing the process of choosing the best specimens and species to work with.
-                                                     "
-                                                     )), tags$br(),
-           tags$h3(tags$strong(tags$em("Workflow"))),
-                                                    tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
-                                                                   tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),
-                                                                   "considering that intermediate taxa are usually the most likely to be absent. Additionally, the spelling of the taxa should be identical to the spelling according to the information at BOLD.",
-                                                      tags$br(), tags$br(),
-                                                    
-                                          
-                                                      "The app has three main options: download a tsv library for every species belonging to the taxa,
-                                                    download a tsv library for only marine species belonging to the taxa or download a tsv library for only non-marine species belonging to the taxa.
-                                                    ",tags$br(),tags$br(),
-                                                    "Then, after you enter the name of the taxonomic group/groups or enter a file with a list of species names, a data set
-                                                     will be created and curated following these steps:", tags$br(),
-                 tags$div(style="text-align:justify",tags$ol(
-                   tags$li("Downloading the data set in tsv file format, consisting of specimen data and its respective COI-5P sequence belonging to the chosen taxa, from the",
-                           tags$a(href="http://boldsystems.org/index.php/resources/api", "BOLD Public Data Portal.", target="_blank")),tags$br(),
-                   tags$li("Filtering", tags$strong("out"), "the following from the data set:",tags$br(),tags$br(),tags$ul(tags$li("Specimens with sequences of length < 500bp"), tags$br(),
-                                                                                  tags$li("Specimens without data on species name, BIN, lattitude or country of origin"),tags$br(),
-                                                                                  tags$li("Ambiguous characters occasionally present in the species name and COI-5P sequences"),tags$br(),
-                                                                                  tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most common
-                                                                                          ambiguous character"))),tags$br(), 
-                   tags$li("In the case of the marine or non-marine taxa options, the data set is filtered once again, retaining or excluding only the species known to be from marine or brackish habitats, using their species name as reference.
-                           This is achieved using the", tags$a(href="http://www.marinespecies.org/","WoRMS database,",target="_blank"),"therefore, the download and annotation will take longer."), tags$br(),
-                   tags$li("Lastly, according to the quality and availability of the data of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
-                           Then, several reference libraries in fasta format are created, which can be downloaded individually."))))),
-  tags$div(style="text-align:justify",tags$h3(tags$strong(tags$em("Disclaimer"))),
+                                                    studies which use DNA barcodes as their basis, such as metabarcoding. Therefore, this system allows the user to generate reference libraries which point out incongruencies between the species names and
+                                                    the sequences clustered in BINs, optimizing the process of choosing the best specimens and species to work with.",tags$br(),tags$br(),
+                                                     "This process includes a set of different features and options:"))),
+  tags$div(style="text-align:justify",tags$h4(tags$ol(
+    tags$li("User library selection - taxa search or user-provided species list."),tags$br(),
+    tags$li("Library compilation - application of quality filters to the sequences and specimen data"),tags$br(),
+    tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
+    tags$li("Auditing and annotation - Implementation of the grade ranking system."),tags$br(),
+    tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))))),column(3,align="center",tags$br(),tags$br(),
+                div(style="display:inline-block",tags$img(src='http://biodiversitygenomics.net/site/wp-content/uploads/2016/01/logo_bold.png', width = "162px", height ="107px")),
+                  tags$br(),
+                  tags$br(),
+                  tags$br(),
+                  tags$br(),
+                  tags$br(),
+                  div(style="display:inline-block",tags$img(src='http://marinespecies.org/images/layout/worms_logo.png', width = "213px", height ="50px")))),
+  fluidRow(column(12,align="center",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),
+  tags$div(style="text-align:justify",tags$h4(tags$strong("Disclaimer")),
            tags$h4(tags$p("Despite the fact that utmost care has been taken by us to guarantee the effectivness and reliability of the web application,
-                          the use of the application is without any kind of warranty, expressed or implied. In no event shall the authors be liable for any damages of any type."))))),column(3,align="center",tags$br(),tags$br(),
-                div(style="display:inline-block",tags$img(src='http://biodiversitygenomics.net/site/wp-content/uploads/2016/01/logo_bold.png', width = "250px", height ="165px"),
-                  tags$br(),
-                  tags$br(),
-                  tags$br(),
-                  tags$br(),
-                  tags$br(),
-                  div(style="display:inline-block",tags$img(src='http://marinespecies.org/images/layout/worms_logo.png', width = "325px", height ="76px")))))),
+                          the use of the application is without any kind of warranty, expressed or implied. In no event shall the authors be liable for any damages of any type.")))),
 
-###DEFINITION OF THE GRADES TAB
-  tabPanel(title="GRADES",   setBackgroundColor(color = c("#e6f9ff", "#7aa8b8"),gradient = "linear",direction = "top"),
-  fluidRow(column(12,align="center",tags$u(tags$h2(tags$em(tags$b("Definition of the grades")))))),tags$br(),
+###HELP TAB
+  tabPanel(title="HELP",   setBackgroundColor(color = c("#e6f9ff", "#7aa8b8"),gradient = "linear",direction = "top"),
+           tabsetPanel(type="tabs", tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h2(tags$em(tags$b("WORKFLOW")))),tags$br(),
+                    tags$div(style="text-align:justify",tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
+tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),
+"considering that intermediate taxa are usually the most likely to be absent. Additionally, the spelling of the taxa should be identical to the spelling according to the information at BOLD.",
+tags$br(), tags$br(),
+"The app has three main options: download a tsv library for every species belonging to the taxa,
+                                                    download a tsv library for only marine species belonging to the taxa or download a tsv library for only non-marine species belonging to the taxa.
+                                                    ",tags$br(),tags$br(),"Then, after you enter the name of the taxonomic group/groups or enter a file with a list of species names, a data set
+                                                     will be created and curated following these steps:", tags$br(),tags$br(),tags$div(style="text-align:justify",tags$ol(
+                                                                                                                                        tags$li("Downloading the data set in tsv file format, consisting of specimen data and its respective COI-5P sequence belonging to the chosen taxa, from the",
+                                                                                                                                                tags$a(href="http://boldsystems.org/index.php/resources/api", "BOLD Public Data Portal.", target="_blank")),tags$br(),
+                                                                                                                                        tags$li("Filtering", tags$strong("out"), "the following from the data set:",tags$br(),tags$br(),tags$ul(tags$li("Specimens with sequences of length < 500bp"), tags$br(),
+                                                                                                                                                                                                                                                tags$li("Specimens without data on species name, BIN, lattitude or country of origin"),tags$br(),
+                                                                                                                                                                                                                                                tags$li("Ambiguous characters occasionally present in the species name and COI-5P sequences"),tags$br(),
+                                                                                                                                                                                                                                                tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most commonambiguous character"))),tags$br(), 
+                                                                                                                                        tags$li("In the case of the marine or non-marine taxa options, the data set is filtered once again, retaining or excluding only the species known to be from marine or brackish habitats, using their species name as reference.
+                           This is achieved using the", tags$a(href="http://www.marinespecies.org/","WoRMS database,",target="_blank"),"therefore, the download and annotation will take longer."), tags$br(),
+                                                                                                                                        tags$li("Lastly, according to the quality and availability of the data of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
+                           Then, several reference libraries in fasta format are created, which can be downloaded individually."))))))),column(1,align="right"))),
+
+
+  tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("GRADES"))),fluidRow(column(12,align="center",tags$u(tags$h2(tags$em(tags$b("GRADES")))))),tags$br(),
     
-  fluidRow(column(2,align="left"),column(8,align="center",tags$div(style="text-align:justify",tags$h4(tags$p("The assignment of each grade is based on the quality, availability and replicability of the data and metadata for each species, as well as
+  fluidRow(column(1,align="left"),column(10,align="center",tags$div(style="text-align:justify",tags$h4(tags$p("The assignment of each grade is based on the quality, availability and replicability of the data and metadata for each species, as well as
                                                      the quality and congruence of the COI-5P sequences, evaluated in accordance to their ",
                                                                                                              tags$a(href="http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home", "Barcode Index Number (BIN).", target="_blank"),
-          column(2,align="right"),tags$br(),
+          column(1,align="right"),tags$br(),
           "The BIN System is an online framework at",tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"),"that generates Operational Taxonomic Units (OTUS)
                     by clustering barcode sequences algorithmically, grouping them in a manner that ideally, mirrors their respective specimen morphological identification."),tags$br(),
           tags$p("The grades are attributed to each species according to the following criteria:"),tags$br(),
@@ -684,13 +687,13 @@ BINs, but each of those BINs are assigned exclusively to that species"),tags$br(
                      tags$li(tags$strong(tags$span(style="color:#ff6600","Grade D "),"Insufficient data"),"Species is not assigned discordantly, but it has less than 3 specimens available in the reference library "),tags$br(),
                      tags$li(tags$strong(tags$span(style="color:#cc0000","Grade E "),"Discordant species assignment"),"Species assigned to a BIN that is
 assigned to more than one different species. The specimen may match with a different
-species or display paraphyly or polyphyly"),tags$br(),tags$br()))),
-          tags$p(tags$strong(("The grades were adapted from the following studies:"))),
+species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/scheme_grades3a2aece1f92bb98a.png', width = "808px", height ="499px")),tags$br(),
+          tags$br(),tags$br(),tags$p(tags$strong(("The grades were adapted from the following studies:"))),
           tags$div(style="text-align:justify",tags$ul(tags$li("Costa, Filipe O., Landi, M., Martins, R., Costa, M. H., Costa, M. E., Carneiro, M., . Carvalho, G. R. (2012). A ranking system for 
                           reference libraries of DNA barcodes: application to marine fish species from Portugal. PloS One, 7(4), 1-9. doi: 10.1371/journal.pone.0035858"),
                                                       tags$br(),
                   tags$li("Oliveira, L. M., Knebelsberger, T., Landi, M., Soares, P., Raupach, M. J., & Costa, F. O. (2016). Assembling and auditing a 
-                          comprehensive DNA barcode reference library for European marine fishes. Journal of Fish Biology, 89(6), 2741-2754. doi: 10.1111/jfb.13169")))))),
+                          comprehensive DNA barcode reference library for European marine fishes. Journal of Fish Biology, 89(6), 2741-2754. doi: 10.1111/jfb.13169"))))))) ),
 
 ########### DOWNLOAD AND AUDIT DATA SETS TAB
 
