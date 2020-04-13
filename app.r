@@ -32,9 +32,9 @@ library(snakecase)
 
 #GET FILES FROM GITHUB
 file_spb<-"https://raw.githubusercontent.com/tadeu95/BAGS/master/species_per_bin.txt"
-spb<-read.delim(file_spb,quote = "",comment.char = "")
+spb<-fread(file_spb)
 file_bps<-"https://raw.githubusercontent.com/tadeu95/BAGS/master/bin_per_species.txt"
-bps<-read.delim(file_bps,quote = "",comment.char = "")
+bps<-fread(file_bps)
 
 
 #####GRADES CHECKLIST
