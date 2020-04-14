@@ -8,7 +8,7 @@
 
 2. Optionally you can download and install [RStudio.](https://rstudio.com/products/rstudio/download/)
 
-3. Open RGui or Rstudio and run the following line of code to install the required packages:
+3. Open RGui or Rstudio and install the necessary packages:
 ```
 install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
