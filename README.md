@@ -12,11 +12,11 @@
 ```
 install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
-4. Run the following line of code to load the "shiny" package:
+4. Load the "shiny" package:
 ```
 library(shiny)
 ```
-5. Launch the app by running:
+5. Run the app from GitHub:
 ```
 runGitHub("BAGS", "tadeu95")
 ```
