@@ -60,8 +60,7 @@ grades_checklist<-function(checklist){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  taxon2<-taxon2[taxon2$markercode=="COI-5P",]
-  taxon3<-taxon2
+  taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
   taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
@@ -77,11 +76,9 @@ grades_checklist<-function(checklist){
   taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cf.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" pr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
@@ -94,28 +91,48 @@ grades_checklist<-function(checklist){
   taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
-  taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
-  taxon8$base_number=str_count(taxon8$sequence, pattern="[A-Z]")
-  taxon8<-taxon8[(taxon8$base_number>499),]
-  np=(str_count(taxon8$sequence, "N")/str_count(taxon8$sequence, "[A-Z]"))*100
-  taxon8$n_percent=np
-  taxon8<-subset(taxon8,taxon8$n_percent<1)
-  taxon8$n_percent=NULL
-  taxon8=subset(taxon8, lengths(gregexpr("\\w+", taxon8$species_name)) > 1)
-  num_species=table(taxon8$species_name)
-  num_species=as.data.frame(num_species)
-  names(num_species)=c("species","frequency_species")
   taxon8$grade=NA
-  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","base_number","grade")
-  taxon9<-inner_join(taxon8,num_species)
-  taxon9=data.frame(taxon9$species,taxon9$BIN,taxon9$sequence,taxon9$country,taxon9$grade,taxon9$frequency_species,taxon9$base_number,taxon9$family,taxon9$order,taxon9$class,taxon9$sampleid,taxon9$processid,taxon9$species_per_bin,taxon9$bin_per_species,taxon9$lat,taxon9$lon)
-  names(taxon9)=c("species","BIN","sequence","country","grade","species_frequency","base_number","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
+  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","grade")
+  taxon9=data.frame(taxon8$species,taxon8$BIN,taxon8$sequence,taxon8$country,taxon8$grade,taxon8$family,taxon8$order,taxon8$class,taxon8$sampleid,taxon8$processid,taxon8$species_per_bin,taxon8$bin_per_species,taxon8$lat,taxon8$lon)
+  names(taxon9)=c("species","BIN","sequence","country","grade","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
   taxon19<-taxon9 %>%
     mutate(grade = ifelse(species_per_bin>1,"E",
-                          ifelse(species_frequency<3,"D",
-                                 ifelse(bin_per_species>1 & species_per_bin==1,"C",
-                                        ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency<11,"B",
-                                               ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency>10,"A",NA)) ))))
+                          ifelse(bin_per_species>1 & species_per_bin==1,"C",
+                                 ifelse(bin_per_species==1 & species_per_bin==1,"AB","needs_update"))))
+  dominant_grade <- "E"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "C"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "AB"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  taxon19$contains_dominant=NULL
+  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
+  taxon19<-taxon19[(taxon19$base_number>499),]
+  np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
+  taxon19$n_percent=np
+  taxon19<-subset(taxon19,taxon19$n_percent<1)
+  taxon19$n_percent=NULL
+  taxon19=subset(taxon19, lengths(gregexpr("\\w+", taxon19$species)) > 1)
+  num_species=table(taxon19$species)
+  num_species=as.data.frame(num_species)
+  names(num_species)=c("species","frequency_species")
+  taxon19<-inner_join(taxon19,num_species)
+  taxon19<-taxon19 %>%
+    mutate(grade = ifelse(grade=="E","E",
+                          ifelse(frequency_species<3,"D",
+                                 ifelse(grade=="C","C",
+                                        ifelse(grade=="AB" & frequency_species<11,"B",
+                                               ifelse(grade=="AB" & frequency_species>10,"A","needs_update"))))))
   dominant_grade <- "E"
   dt <- as.data.table(taxon19)
   dt[, contains_dominant := any(grade == dominant_grade), by=species]
@@ -147,11 +164,10 @@ grades_checklist<-function(checklist){
   taxon19$species_frequency=NULL
   taxon19$species_per_bin=NULL
   taxon19$bin_per_species=NULL
+  taxon19$frequency_species=NULL
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
-
-
 #####IMPLEMENT RANKING SYSTEM FOR ALL TAXA
 grades2<-function(groups){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
@@ -163,8 +179,7 @@ grades2<-function(groups){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  taxon2<-taxon2[taxon2$markercode=="COI-5P",]
-  taxon3<-taxon2
+  taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
   taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
@@ -180,11 +195,9 @@ grades2<-function(groups){
   taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cf.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" pr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
@@ -197,28 +210,48 @@ grades2<-function(groups){
   taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
-  taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
-  taxon8$base_number=str_count(taxon8$sequence, pattern="[A-Z]")
-  taxon8<-taxon8[(taxon8$base_number>499),]
-  np=(str_count(taxon8$sequence, "N")/str_count(taxon8$sequence, "[A-Z]"))*100
-  taxon8$n_percent=np
-  taxon8<-subset(taxon8,taxon8$n_percent<1)
-  taxon8$n_percent=NULL
-  taxon8=subset(taxon8, lengths(gregexpr("\\w+", taxon8$species_name)) > 1)
-  num_species=table(taxon8$species_name)
-  num_species=as.data.frame(num_species)
-  names(num_species)=c("species","frequency_species")
   taxon8$grade=NA
-  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","base_number","grade")
-  taxon9<-inner_join(taxon8,num_species)
-  taxon9=data.frame(taxon9$species,taxon9$BIN,taxon9$sequence,taxon9$country,taxon9$grade,taxon9$frequency_species,taxon9$base_number,taxon9$family,taxon9$order,taxon9$class,taxon9$sampleid,taxon9$processid,taxon9$species_per_bin,taxon9$bin_per_species,taxon9$lat,taxon9$lon)
-  names(taxon9)=c("species","BIN","sequence","country","grade","species_frequency","base_number","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
+  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","grade")
+  taxon9=data.frame(taxon8$species,taxon8$BIN,taxon8$sequence,taxon8$country,taxon8$grade,taxon8$family,taxon8$order,taxon8$class,taxon8$sampleid,taxon8$processid,taxon8$species_per_bin,taxon8$bin_per_species,taxon8$lat,taxon8$lon)
+  names(taxon9)=c("species","BIN","sequence","country","grade","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
   taxon19<-taxon9 %>%
     mutate(grade = ifelse(species_per_bin>1,"E",
-                          ifelse(species_frequency<3,"D",
-                                 ifelse(bin_per_species>1 & species_per_bin==1,"C",
-                                        ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency<11,"B",
-                                               ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency>10,"A","needs_update")) ))))
+                          ifelse(bin_per_species>1 & species_per_bin==1,"C",
+                                 ifelse(bin_per_species==1 & species_per_bin==1,"AB","needs_update"))))
+  dominant_grade <- "E"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "C"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "AB"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  taxon19$contains_dominant=NULL
+  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
+  taxon19<-taxon19[(taxon19$base_number>499),]
+  np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
+  taxon19$n_percent=np
+  taxon19<-subset(taxon19,taxon19$n_percent<1)
+  taxon19$n_percent=NULL
+  taxon19=subset(taxon19, lengths(gregexpr("\\w+", taxon19$species)) > 1)
+  num_species=table(taxon19$species)
+  num_species=as.data.frame(num_species)
+  names(num_species)=c("species","frequency_species")
+  taxon19<-inner_join(taxon19,num_species)
+  taxon19<-taxon19 %>%
+    mutate(grade = ifelse(grade=="E","E",
+                          ifelse(frequency_species<3,"D",
+                                 ifelse(grade=="C","C",
+                                        ifelse(grade=="AB" & frequency_species<11,"B",
+                                               ifelse(grade=="AB" & frequency_species>10,"A","needs_update"))))))
   dominant_grade <- "E"
   dt <- as.data.table(taxon19)
   dt[, contains_dominant := any(grade == dominant_grade), by=species]
@@ -250,11 +283,10 @@ grades2<-function(groups){
   taxon19$species_frequency=NULL
   taxon19$species_per_bin=NULL
   taxon19$bin_per_species=NULL
+  taxon19$frequency_species=NULL
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
-
-
 ####IMPLEMENT RANKING SYSTEM MARINE TAXA
 grades<-function(groups){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
@@ -266,8 +298,7 @@ grades<-function(groups){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  taxon2<-taxon2[taxon2$markercode=="COI-5P",]
-  taxon3<-taxon2
+  taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
   taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
@@ -283,11 +314,9 @@ grades<-function(groups){
   taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cf.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" pr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
@@ -306,28 +335,48 @@ grades<-function(groups){
   taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon,taxon7$new_name)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
-  taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
-  taxon8$base_number=str_count(taxon8$sequence, pattern="[A-Z]")
-  taxon8<-taxon8[(taxon8$base_number>499),]
-  np=(str_count(taxon8$sequence, "N")/str_count(taxon8$sequence, "[A-Z]"))*100
-  taxon8$n_percent=np
-  taxon8<-subset(taxon8,taxon8$n_percent<1)
-  taxon8$n_percent=NULL
-  taxon8=subset(taxon8, lengths(gregexpr("\\w+", taxon8$species_name)) > 1)
-  num_species=table(taxon8$species_name)
-  num_species=as.data.frame(num_species)
-  names(num_species)=c("species","frequency_species")
   taxon8$grade=NA
-  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name","base_number","grade")
-  taxon9<-inner_join(taxon8,num_species)
-  taxon9=data.frame(taxon9$species,taxon9$BIN,taxon9$sequence,taxon9$country,taxon9$grade,taxon9$frequency_species,taxon9$base_number,taxon9$family,taxon9$order,taxon9$class,taxon9$sampleid,taxon9$processid,taxon9$species_per_bin,taxon9$bin_per_species,taxon9$lat,taxon9$lon,taxon9$worms_accepted_name)
-  names(taxon9)=c("species","BIN","sequence","country","grade","species_frequency","base_number","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
+  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name","grade")
+  taxon9=data.frame(taxon8$species,taxon8$BIN,taxon8$sequence,taxon8$country,taxon8$grade,taxon8$family,taxon8$order,taxon8$class,taxon8$sampleid,taxon8$processid,taxon8$species_per_bin,taxon8$bin_per_species,taxon8$lat,taxon8$lon,taxon8$worms_accepted_name)
+  names(taxon9)=c("species","BIN","sequence","country","grade","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
   taxon19<-taxon9 %>%
     mutate(grade = ifelse(species_per_bin>1,"E",
-                          ifelse(species_frequency<3,"D",
-                                 ifelse(bin_per_species>1 & species_per_bin==1,"C",
-                                        ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency<11,"B",
-                                               ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency>10,"A","needs_update")) ))))
+                          ifelse(bin_per_species>1 & species_per_bin==1,"C",
+                                 ifelse(bin_per_species==1 & species_per_bin==1,"AB","needs_update"))))
+  dominant_grade <- "E"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "C"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "AB"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  taxon19$contains_dominant=NULL
+  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
+  taxon19<-taxon19[(taxon19$base_number>499),]
+  np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
+  taxon19$n_percent=np
+  taxon19<-subset(taxon19,taxon19$n_percent<1)
+  taxon19$n_percent=NULL
+  taxon19=subset(taxon19, lengths(gregexpr("\\w+", taxon19$species)) > 1)
+  num_species=table(taxon19$species)
+  num_species=as.data.frame(num_species)
+  names(num_species)=c("species","frequency_species")
+  taxon19<-inner_join(taxon19,num_species)
+  taxon19<-taxon19 %>%
+    mutate(grade = ifelse(grade=="E","E",
+                          ifelse(frequency_species<3,"D",
+                                 ifelse(grade=="C","C",
+                                        ifelse(grade=="AB" & frequency_species<11,"B",
+                                               ifelse(grade=="AB" & frequency_species>10,"A","needs_update"))))))
   dominant_grade <- "E"
   dt <- as.data.table(taxon19)
   dt[, contains_dominant := any(grade == dominant_grade), by=species]
@@ -359,10 +408,11 @@ grades<-function(groups){
   taxon19$species_frequency=NULL
   taxon19$species_per_bin=NULL
   taxon19$bin_per_species=NULL
+  taxon19$frequency_species=NULL
+  taxon19$frequency_species=NULL
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
-
 ####IMPLEMENT RANKING SYSTEM NONMARINE TAXA
 grades_nonmarine<-function(groups){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
@@ -374,8 +424,7 @@ grades_nonmarine<-function(groups){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  taxon2<-taxon2[taxon2$markercode=="COI-5P",]
-  taxon3<-taxon2
+  taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
   taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
@@ -391,11 +440,9 @@ grades_nonmarine<-function(groups){
   taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cf.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" pr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
   taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
@@ -415,28 +462,48 @@ grades_nonmarine<-function(groups){
   taxon7<-taxon6
   taxon8<-data.frame(taxon7$species_name,taxon7$bin_uri,taxon7$nucleotides,taxon7$country,taxon7$family_name,taxon7$order_name,taxon7$class_name,taxon7$sampleid,taxon7$processid,taxon7$species_per_bin,taxon7$bin_per_species, taxon7$lat,taxon7$lon,taxon7$new_name)
   names(taxon8)<-c("species_name","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
-  taxon8<-taxon8[!(is.na(taxon8$lattitude)) | taxon8$country!="",]
-  taxon8$base_number=str_count(taxon8$sequence, pattern="[A-Z]")
-  taxon8<-taxon8[(taxon8$base_number>499),]
-  np=(str_count(taxon8$sequence, "N")/str_count(taxon8$sequence, "[A-Z]"))*100
-  taxon8$n_percent=np
-  taxon8<-subset(taxon8,taxon8$n_percent<1)
-  taxon8$n_percent=NULL
-  taxon8=subset(taxon8, lengths(gregexpr("\\w+", taxon8$species_name)) > 1)
-  num_species=table(taxon8$species_name)
-  num_species=as.data.frame(num_species)
-  names(num_species)=c("species","frequency_species")
   taxon8$grade=NA
-  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name","base_number","grade")
-  taxon9<-inner_join(taxon8,num_species)
-  taxon9=data.frame(taxon9$species,taxon9$BIN,taxon9$sequence,taxon9$country,taxon9$grade,taxon9$frequency_species,taxon9$base_number,taxon9$family,taxon9$order,taxon9$class,taxon9$sampleid,taxon9$processid,taxon9$species_per_bin,taxon9$bin_per_species,taxon9$lat,taxon9$lon)
-  names(taxon9)=c("species","BIN","sequence","country","grade","species_frequency","base_number","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude")
+  names(taxon8)=c("species","BIN","sequence","country","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name","grade")
+  taxon9=data.frame(taxon8$species,taxon8$BIN,taxon8$sequence,taxon8$country,taxon8$grade,taxon8$family,taxon8$order,taxon8$class,taxon8$sampleid,taxon8$processid,taxon8$species_per_bin,taxon8$bin_per_species,taxon8$lat,taxon8$lon,taxon8$worms_accepted_name)
+  names(taxon9)=c("species","BIN","sequence","country","grade","family","order","class","sampleid","processid","species_per_bin","bin_per_species","lattitude","longitude","worms_accepted_name")
   taxon19<-taxon9 %>%
     mutate(grade = ifelse(species_per_bin>1,"E",
-                          ifelse(species_frequency<3,"D",
-                                 ifelse(bin_per_species>1 & species_per_bin==1,"C",
-                                        ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency<11,"B",
-                                               ifelse(bin_per_species==1 & species_per_bin==1 & species_frequency>10,"A","needs_update")) ))))
+                          ifelse(bin_per_species>1 & species_per_bin==1,"C",
+                                 ifelse(bin_per_species==1 & species_per_bin==1,"AB","needs_update"))))
+  dominant_grade <- "E"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "C"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  dominant_grade <- "AB"
+  dt <- as.data.table(taxon19)
+  dt[, contains_dominant := any(grade == dominant_grade), by=species]
+  dt[contains_dominant == TRUE, grade := dominant_grade]
+  taxon19 <- setDF(dt)
+  taxon19$contains_dominant=NULL
+  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
+  taxon19<-taxon19[(taxon19$base_number>499),]
+  np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
+  taxon19$n_percent=np
+  taxon19<-subset(taxon19,taxon19$n_percent<1)
+  taxon19$n_percent=NULL
+  taxon19=subset(taxon19, lengths(gregexpr("\\w+", taxon19$species)) > 1)
+  num_species=table(taxon19$species)
+  num_species=as.data.frame(num_species)
+  names(num_species)=c("species","frequency_species")
+  taxon19<-inner_join(taxon19,num_species)
+  taxon19<-taxon19 %>%
+    mutate(grade = ifelse(grade=="E","E",
+                          ifelse(frequency_species<3,"D",
+                                 ifelse(grade=="C","C",
+                                        ifelse(grade=="AB" & frequency_species<11,"B",
+                                               ifelse(grade=="AB" & frequency_species>10,"A","needs_update"))))))
   dominant_grade <- "E"
   dt <- as.data.table(taxon19)
   dt[, contains_dominant := any(grade == dominant_grade), by=species]
@@ -468,12 +535,12 @@ grades_nonmarine<-function(groups){
   taxon19$species_frequency=NULL
   taxon19$species_per_bin=NULL
   taxon19$bin_per_species=NULL
+  taxon19$frequency_species=NULL
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
 
 ###Barplot of the frequency of each grade assigned.
-
 #Specimens
 plot_summary_specimens=function(taxon19){
   frequency_grades=c(length(which(taxon19$grade=="A")),length(which(taxon19$grade=="B")),length(which(taxon19$grade=="C")),length(which(taxon19$grade=="D")),length(which(taxon19$grade=="E")))
@@ -491,7 +558,6 @@ plot_summary_specimens=function(taxon19){
           panel.background = element_rect(fill = "transparent",colour = NA),
           plot.background = element_rect(fill = "transparent",colour = NA))
 }
-
 #Species
 plot_summary_species=function(taxon19){
   frequency_grades=c(as.numeric(length(unique(taxon19$species[taxon19$grade=="A"]))),as.numeric(length(unique(taxon19$species[taxon19$grade=="B"]))),as.numeric(length(unique(taxon19$species[taxon19$grade=="C"]))),as.numeric(length(unique(taxon19$species[taxon19$grade=="D"]))),as.numeric(length(unique(taxon19$species[taxon19$grade=="E"]))))
@@ -557,7 +623,6 @@ create_E=function(taxon19){
 }
 
 ####Create fasta files grouped
-
 #Only grades A and B
 create_AB=function(taxon19){
   taxon_ab=taxon19[taxon19$grade=="A" | taxon19$grade=="B",]
@@ -594,7 +659,6 @@ create_fasta=function(taxon19){
   assign('taxon20',taxon20,envir=.GlobalEnv)
 }
 
-
 #########################
 ##################
 ############ APP BEGINS
@@ -606,7 +670,7 @@ create_fasta=function(taxon19){
 #########
 #####USER INTERFACE
 
-ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade system",
+ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.1")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade system",
        
 ####HOME TAB
                  tabPanel(title="HOME", setBackgroundColor(
@@ -625,13 +689,13 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0"
                  uploading of the data in libraries repositories, thus becoming potential liabilities for scientific studies which use DNA barcodes as their basis, such as metabarcoding.",tags$br(),tags$br(),
                  "BAGS enables the user to generate reference libraries which point out incongruencies between the species names and the sequences clustered in BINs, optimizing the process of selecting the most reliable specimen records and species to work with, according to the available data. This application is also meant to facilitate revision and curation of the reference libraries. 
                  Indeed, we encourage users of BAGS and of publicly available reference libraries, to retribute to the communitty by either contributing DNA barcodes to further expand the libraries or to review and curate data.",
-                 tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mine and subsequently perform post-barcoding auditing and annotation 
-                 of a DNA barcode reference library of COI-5P sequences in an automated way.  BAGS features the following tools and options:"))),
+                 tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mine and subsequently performs post-barcoding auditing and annotation 
+                 of a DNA barcode library of COI-5P sequences in an automated way.  BAGS features the following tools and options:"))),
   tags$div(style="text-align:justify",tags$br(),tags$h4(tags$ol(
     tags$li("User library selection - taxa search or user-provided species list."),tags$br(),
     tags$li("Library compilation - application of quality filters to the sequences and specimen data"),tags$br(),
     tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
-    tags$li("Auditing and annotation - Implementation of the grade ranking system."),tags$br(),
+    tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
     tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br(),
     fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","BAGS on GitHub",target="_blank")))))
     )),column(5,align="center",tags$br(),tags$br(),tags$br(),
@@ -788,22 +852,21 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                   column(6,align="center",actionBttn("clicks2",size="sm",icon=icon("arrow-circle-right"),label="NUMBER OF SPECIES PER GRADE"))),
   fluidRow(column(6,plotOutput("bar1")),
            column(6,plotOutput("bar2")))),
+
 #CONTACTS/RESOURCES
-tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(1,align="left"),column(3,align="left",tags$h3(tags$strong("How to cite")),tags$h4(tags$a(href="http://paper.com/", "Link with paper title for citing", target="_blank"))),
-                                                                                             column(3,align="center",tags$h3(tags$strong("Contacts")),tags$br(),
-                                                                                                    tags$ul(tags$li("contact1"),tags$li("contact2"),tags$li("contact3"),tags$li("contacts4"))),
-                                                                                             column(3,align="center",tags$h3(tags$strong(("Useful links")),tags$br(),tags$ul(tags$li(tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank"))),
+tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(3,align="left",tags$h3(tags$strong("How to cite")),tags$br(),tags$h4(tags$a(href="http://paper.com/", "Link with paper title for citing", target="_blank"))),
+                                                                                             column(3,align="left",tags$h3(tags$strong("Contacts")),tags$br(),
+                                                                                                    tags$ul(tags$h4(tags$li("contact1")),tags$h4(tags$li("contact2")),tags$h4(tags$li("contact3")),tags$h4(tags$li("contacts4")))),
+                                                                                             column(3,align="left",tags$h3(tags$strong(("Useful links")),tags$br(),tags$ul(tags$li(tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="https://ibol.org/programs/bioscan/", "BIOSCAN", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="https://ibol.org/", "iBOL", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="http://marinespecies.org/", "WoRMS", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="https://dnaqua.net/ ", "DNAqua", target="_blank"))))),
-                                                                                                    column(1,align="right"))),
+                                                                                                                                                                             tags$li(tags$h4(tags$a(href="https://dnaqua.net/ ", "DNAqua-Net", target="_blank"))))))),
          tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),
          fluidRow(column(1,align="left"),column(10,align="center",  tags$div(style="text-align:justify",tags$h5(tags$strong("Disclaimer")),
                                                                              tags$h5(tags$p("Despite the fact that utmost care has been taken by us to guarantee the effectivness and reliability of the web application,
                           the use of the application is without any kind of warranty, expressed or implied. In no event shall the authors be liable for any damages of any type.")))),column(1,align="right"))))
-
 
 
 ##########################
@@ -1126,4 +1189,3 @@ server <- function(input, output){
 
 ############## RUNNING THE APP
 shinyApp(ui=ui,server=server)
-
