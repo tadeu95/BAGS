@@ -63,29 +63,14 @@ grades_checklist<-function(checklist){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
-  taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-sub("^[A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub("^[A-Z,a-z][A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z][A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" +$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
-  taxon3$species_name<-gsub(" grp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  for (p in patterns_non){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name)
+  }
+  patterns_fixed<-c("-"," sp."," sp. nov"," complex."," f."," nr."," s.l."," grp."," type"," group")
+  for (p in patterns_fixed){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name,fixed=TRUE)
+  }
   taxon6<-taxon3
   #FILTER BY MARINE
   taxon7<-taxon6
@@ -182,29 +167,14 @@ grades2<-function(groups){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
-  taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-sub("^[A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub("^[A-Z,a-z][A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z][A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" +$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
-  taxon3$species_name<-gsub(" grp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  for (p in patterns_non){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name)
+  }
+  patterns_fixed<-c("-"," sp."," sp. nov"," complex."," f."," nr."," s.l."," grp."," type"," group")
+  for (p in patterns_fixed){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name,fixed=TRUE)
+  }
   taxon6<-taxon3
   #FILTER BY MARINE
   taxon7<-taxon6
@@ -301,29 +271,14 @@ grades<-function(groups){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
-  taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-sub("^[A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub("^[A-Z,a-z][A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z][A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" +$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
-  taxon3$species_name<-gsub(" grp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  for (p in patterns_non){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name)
+  }
+  patterns_fixed<-c("-"," sp."," sp. nov"," complex."," f."," nr."," s.l."," grp."," type"," group")
+  for (p in patterns_fixed){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name,fixed=TRUE)
+  }
   taxon4<-wormsbynames(as.character(unique(taxon3$species_name)), marine_only=FALSE, ids=TRUE)
   taxon4<-taxon4%>%
     mutate(new_name = ifelse(status=="unaccepted" & !is.na(status),valid_name,
@@ -426,30 +381,15 @@ grades_nonmarine<-function(groups){
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
-  taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
-  taxon3$species_name<-gsub("[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.+", "", taxon3$species_name)
-  taxon3$species_name<-sub("^[A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub("^[A-Z,a-z][A-Z,a-z] ", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" [A-Z,a-z][A-Z,a-z]$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[a-z,A-Z]+[0-9]+.*", "", taxon3$species_name)
-  taxon3$species_name<-gsub("[0-9]+", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" +$", "", taxon3$species_name)
-  taxon3$species_name<-gsub("-", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" sp. nov", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" complex.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" cmplx$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" f.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" nr.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" s.l.", "", taxon3$species_name,fixed = TRUE)
-  taxon3$species_name<-gsub(" grp.", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" [A-Z]+.+$", "", taxon3$species_name)
-  taxon3$species_name<-gsub(" type", "", taxon3$species_name,fixed=TRUE)
-  taxon3$species_name<-gsub(" group", "", taxon3$species_name,fixed=TRUE)
+  taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  for (p in patterns_non){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name)
+  }
+  patterns_fixed<-c("-"," sp."," sp. nov"," complex."," f."," nr."," s.l."," grp."," type"," group")
+  for (p in patterns_fixed){
+    taxon3$species_name<-gsub(p,"",taxon3$species_name,fixed=TRUE)
+  }
   taxon4<-wormsbynames(as.character(unique(taxon3$species_name)), marine_only=FALSE, ids=TRUE)
   taxon4<-taxon4%>%
     mutate(new_name = ifelse(status=="unaccepted" & !is.na(status),valid_name,
@@ -539,7 +479,6 @@ grades_nonmarine<-function(groups){
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
-
 ###Barplot of the frequency of each grade assigned.
 #Specimens
 plot_summary_specimens=function(taxon19){
@@ -621,7 +560,6 @@ create_E=function(taxon19){
   names(taxon_e2)<-c("name","sequence")
   assign('taxon_e2',taxon_e2,envir=.GlobalEnv)
 }
-
 ####Create fasta files grouped
 #Only grades A and B
 create_AB=function(taxon19){
@@ -686,10 +624,10 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
   tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
   tags$h4(tags$p("BAGS emerged as a response to the growing awareness of the susceptibility of DNA barcode reference libraries to several types of errors and inconsistencies. 
                  These can arise at various stages of the barcoding pipeline, from the collection and identification of the specimen, through the DNA sequencing and subsequent 
-                 uploading of the data in libraries repositories, thus becoming potential liabilities for scientific studies which use DNA barcodes as their basis, such as metabarcoding.",tags$br(),tags$br(),
+                 uploading of the data to DNA sequence repositories, thus becoming potential liabilities for scientific studies which use DNA barcodes as their basis, such as metabarcoding.",tags$br(),tags$br(),
                  "BAGS enables the user to generate reference libraries which point out incongruencies between the species names and the sequences clustered in BINs, optimizing the process of selecting the most reliable specimen records and species to work with, according to the available data. This application is also meant to facilitate revision and curation of the reference libraries. 
                  Indeed, we encourage users of BAGS and of publicly available reference libraries, to retribute to the communitty by either contributing DNA barcodes to further expand the libraries or to review and curate data.",
-                 tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mine and subsequently performs post-barcoding auditing and annotation 
+                 tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mines and subsequently performs post-barcoding auditing and annotation 
                  of a DNA barcode library of COI-5P sequences in an automated way.  BAGS features the following tools and options:"))),
   tags$div(style="text-align:justify",tags$br(),tags$h4(tags$ol(
     tags$li("User library selection - taxa search or user-provided species list."),tags$br(),
@@ -697,7 +635,7 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
     tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
     tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
     tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br(),
-    fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","BAGS on GitHub",target="_blank")))))
+    fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","GitHub repository",target="_blank")))))
     )),column(5,align="center",tags$br(),tags$br(),tags$br(),
                   tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
   tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h3(tags$b("WORKFLOW"))),tags$br(),
@@ -1189,3 +1127,4 @@ server <- function(input, output){
 
 ############## RUNNING THE APP
 shinyApp(ui=ui,server=server)
+
