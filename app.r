@@ -792,10 +792,10 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
            column(6,plotOutput("bar2")))),
 
 #CONTACTS/RESOURCES
-tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(3,align="left",tags$h3(tags$strong("How to cite")),tags$br(),tags$h4(tags$a(href="http://paper.com/", "Link with paper title for citing", target="_blank"))),
-                                                                                             column(3,align="left",tags$h3(tags$strong("Contacts")),tags$br(),
+tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(1,align="lefter"),column(3,align="left",tags$h3(tags$strong("How to cite")),tags$br(),tags$h4(tags$a(href="http://paper.com/", "Link with paper title for citing", target="_blank"))),
+                                                                                             column(4,align="center",tags$h3(tags$strong("Contacts")),tags$br(),
                                                                                                     tags$ul(tags$h4(tags$li("contact1")),tags$h4(tags$li("contact2")),tags$h4(tags$li("contact3")),tags$h4(tags$li("contacts4")))),
-                                                                                             column(3,align="left",tags$h3(tags$strong(("Useful links")),tags$br(),tags$ul(tags$li(tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank"))),
+                                                                                             column(3,align="right",tags$h3(tags$strong(("Useful links")),column(1,align="right"),tags$br(),tags$ul(tags$li(tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="https://ibol.org/programs/bioscan/", "BIOSCAN", target="_blank"))),
                                                                                                                                                                              tags$li(tags$h4(tags$a(href="https://ibol.org/", "iBOL", target="_blank"))),
