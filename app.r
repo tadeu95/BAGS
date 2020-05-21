@@ -690,18 +690,18 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
            tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("TAXA SELECTION"))),tags$br(),tabsetPanel(type="pills", 
                                                                                                                            tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Any biome"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for all species"))))),tags$br(),
                                                                                                                                                            textInputAddon(inputId="taxa2",addon=icon("search"),width="500px",label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Carnivora,Ursidae,Artiodactyla,Soricomorpha"),
-                                                                                                                                                           downloadBttn("downloadData_2",size="sm","Download"))),
+                                                                                                                                                           downloadButton("downloadData_2","Download"))),
                                             #MARINE  
                                             tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Marine Taxa Only"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for marine species"))))),tags$br(),
                                                                                                                                       textInputAddon(inputId="taxa",addon=icon("search"),width="500px",
                                                                                                                                                      label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option selects only species that are considered as marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-                                                                                                                                      downloadBttn("downloadData",size="sm","Download"))),
+                                                                                                                                      downloadButton("downloadData","Download"))),
                                             
                                             #NON-MARINE  
                                             tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Excluding Marine Taxa"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for non-marine species"))))),tags$br(),
                                                                                                                                           textInputAddon(inputId="taxa_non",addon=icon("search"),width="500px",
                                                                                                                                                          label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option excludes all species which are assigned exclusively to marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-                                                                                                                                          downloadBttn("downloadData_non",size="sm","Download"))))),
+                                                                                                                                          downloadButton("downloadData_non","Download"))))),
             #CHECKLIST
             tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("UPLOAD SPECIES LIST"))),
                      column(12,align="center", tags$br(),
@@ -717,7 +717,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                          choices = c(Head = "head",
                                                      All = "all"),
                                          selected = "head"),tableOutput("contents"),
-                            downloadBttn("download_1",size="sm","Download"))),
+                            downloadButton("download_1","Download"))),
 
 
             fluidRow(column(12,align="center",tags$br(),tags$br(),
@@ -738,19 +738,24 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                                      tags$br(),
                                                      
                                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#468bb9","grade A"))),
-                                                     downloadBttn('downloadData2',size="sm", 'Download A library'), tags$br(),tags$br(),
+                                                     tags$style(type="text/css", "#downloadData2 {background-color:white;color:#0066ff}"),
+                                                     downloadButton('downloadData2', 'Download A library',class = "butt1"), tags$br(),tags$br(),
                                                      
                                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grade B"))),
-                                                     downloadBttn('downloadData21',size="sm", color="success",'Download B library'),tags$br(),tags$br(),
+                                                     tags$style(type="text/css", "#downloadData21 {background-color:white;color:#009900}"),
+                                                     downloadButton('downloadData21','Download B library',class = "butt2"),tags$br(),tags$br(),
                                                      
                                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grade C"))),
-                                                     downloadBttn('downloadData22',size="sm", color="warning",'Download C library'),tags$br(),tags$br(),
+                                                     tags$style(type="text/css", "#downloadData22 {background-color:white;color:#ccad33}"),
+                                                     downloadButton('downloadData22','Download C library',class="butt3"),tags$br(),tags$br(),
                                                      
                                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grade D"))),
-                                                     downloadBttn('downloadData23',size="sm", color="warning",'Download D library'),tags$br(),tags$br(),
+                                                     tags$style(type="text/css", "#downloadData23 {background-color:white;color:#ff6600}"),
+                                                     downloadButton('downloadData23','Download D library',class="butt4"),tags$br(),tags$br(),
                                                      
                                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#cc0000","grade E"))),
-                                                     downloadBttn('downloadData24',size="sm", color="danger",'Download E library')),
+                                                     tags$style(type="text/css", "#downloadData24 {background-color:white;color:#ff0000}"),
+                                                     downloadButton('downloadData24','Download E library',class="butt5"),tags$br(),tags$br(),tags$br(),tags$br()),
                     #GROUPED
                                 tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("GROUPED"))), tags$br(),
                                          tags$span(style="color:#000000", tags$h3(align="center",
@@ -758,23 +763,25 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                          tags$h4(tags$strong("Choose which grades to include in your library:")),
                                          tags$span(style="color:#b94646", tags$h6(tags$b("NOTE: Make sure the data set download is already completed"))),
                                          tags$br(),                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grades A and B"))),
-                                         downloadBttn('downloadData3', size="sm",color="success",'Download AB library'),
+                                         tags$style(type="text/css", "#downloadData3 {background-color:white;color:#4d804d}"),
+                                         downloadButton('downloadData3','Download AB library',class="butt6"),
                                          tags$br(),
                                          tags$br(),
-                                         
-                                         
                                          tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grades A, B and C"))),
-                                         downloadBttn('downloadData4', size="sm",color="warning",'Download ABC library'),
+                                         tags$style(type="text/css", "#downloadData4 {background-color:white;color:#ccad33}"),
+                                         downloadButton('downloadData4','Download ABC library',class="butt7"),
                                          tags$br(),
                                          tags$br(),
                                          
                                          tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grades A, B, C and D"))),
-                                         downloadBttn('downloadData6', size="sm",color="warning",'Download ABCD library'),
+                                         tags$style(type="text/css", "#downloadData6 {background-color:white;color:#ff6600}"),
+                                         downloadButton('downloadData6','Download ABCD library',class="butt8"),
                                          tags$br(),
                                          tags$br(),
                                          
                                          tags$h5(tags$strong("Graded library including species with",tags$span(style="color:#cc0000","all grades assigned"))),
-                                         downloadBttn('downloadData5',size="sm",color="danger", 'Download ABCDE library'),
+                                         tags$style(type="text/css", "#downloadData5 {background-color:white;color:#cc0000}"),
+                                         downloadButton('downloadData5','Download ABCDE library',class="butt9"),
                                          tags$br(),
                                          tags$br()))))),
   
@@ -815,21 +822,15 @@ tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(1,align="lefter"),column
 server <- function(input, output){
   output$contents <- renderTable({
     
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, head of that data file by default,
-    # or all rows if selected, will be shown.
     
     req(input$file1)
-    #req(input$header)
-    # when reading semicolon separated files,
-    # having a comma separator causes `read.csv` to error
+
     tryCatch(
       {
         checklist <<- read.delim(input$file1$datapath,
                        header = input$header)
       },
       error = function(e) {
-        # return a safeError if a parsing error occurs
         stop(safeError(e))
       }
     )
