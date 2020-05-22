@@ -522,7 +522,7 @@ create_A=function(taxon19){
   taxon_a$species=paste(taxon_a$species,taxon_a$BIN,taxon_a$processid,sep=" | ")
   taxon_a2<-data.frame(taxon_a$species,taxon_a$sequence)
   names(taxon_a2)<-c("name","sequence")
-  assign('taxon_a2',taxon_a2,envir=.GlobalEnv)
+  return(taxon_a2)
 }
 #grade B
 create_B=function(taxon19){
@@ -531,7 +531,7 @@ create_B=function(taxon19){
   taxon_b$species=paste(taxon_b$species,taxon_b$BIN,taxon_b$processid,sep=" | ")
   taxon_b2<-data.frame(taxon_b$species,taxon_b$sequence)
   names(taxon_b2)<-c("name","sequence")
-  assign('taxon_b2',taxon_b2,envir=.GlobalEnv)
+  return(taxon_b2)
 }
 #grade C
 create_C=function(taxon19){
@@ -540,7 +540,7 @@ create_C=function(taxon19){
   taxon_c$species=paste(taxon_c$species,taxon_c$BIN,taxon_c$processid,sep=" | ")
   taxon_c2<-data.frame(taxon_c$species,taxon_c$sequence)
   names(taxon_c2)<-c("name","sequence")
-  assign('taxon_c2',taxon_c2,envir=.GlobalEnv)
+  return(taxon_c2)
 }
 #grade D
 create_D=function(taxon19){
@@ -549,7 +549,7 @@ create_D=function(taxon19){
   taxon_d$species=paste(taxon_d$species,taxon_d$BIN,taxon_d$processid,sep=" | ")
   taxon_d2<-data.frame(taxon_d$species,taxon_d$sequence)
   names(taxon_d2)<-c("name","sequence")
-  assign('taxon_d2',taxon_d2,envir=.GlobalEnv)
+  return(taxon_d2)
 }
 #grade E
 create_E=function(taxon19){
@@ -558,7 +558,7 @@ create_E=function(taxon19){
   taxon_e$species=paste(taxon_e$species,taxon_e$BIN,taxon_e$processid,sep=" | ")
   taxon_e2<-data.frame(taxon_e$species,taxon_e$sequence)
   names(taxon_e2)<-c("name","sequence")
-  assign('taxon_e2',taxon_e2,envir=.GlobalEnv)
+  return(taxon_e2)
 }
 ####Create fasta files grouped
 #Only grades A and B
@@ -568,7 +568,7 @@ create_AB=function(taxon19){
   taxon_ab$species=paste(taxon_ab$species,taxon_ab$BIN,taxon_ab$processid,sep=" | ")
   taxon_ab2<-data.frame(taxon_ab$species,taxon_ab$sequence)
   names(taxon_ab2)<-c("name","sequence")
-  assign('taxon_ab2',taxon_ab2,envir=.GlobalEnv)
+  return(taxon_ab2)
 }
 #Only grades A , B and C
 create_ABC=function(taxon19){
@@ -577,7 +577,7 @@ create_ABC=function(taxon19){
   taxon_abc$species=paste(taxon_abc$species,taxon_abc$BIN,taxon_abc$sprocessid,sep=" | ")
   taxon_abc2<-data.frame(taxon_abc$species,taxon_abc$sequence)
   names(taxon_abc2)<-c("name","sequence")
-  assign('taxon_abc2',taxon_abc2,envir=.GlobalEnv)
+  return(taxon_abc2)
 }
 #Only grades A , B , C and D
 create_ABCD=function(taxon19){
@@ -586,7 +586,7 @@ create_ABCD=function(taxon19){
   taxon_abcd$species=paste(taxon_abcd$species,taxon_abcd$BIN,taxon_abcd$processid,sep=" | ")
   taxon_abcd2<-data.frame(taxon_abcd$species,taxon_abcd$sequence)
   names(taxon_abcd2)<-c("name","sequence")
-  assign('taxon_abcd2',taxon_abcd2,envir=.GlobalEnv)
+  return(taxon_abcd2)
 }
 #All grades
 create_fasta=function(taxon19){
@@ -594,7 +594,7 @@ create_fasta=function(taxon19){
   taxon19$species=paste(taxon19$species, taxon19$BIN,taxon19$processid, sep=" | ")
   taxon20<-data.frame(taxon19$species,taxon19$sequence)
   names(taxon20)<-c("name","sequence")
-  assign('taxon20',taxon20,envir=.GlobalEnv)
+  return(taxon20)
 }
 
 #########################
