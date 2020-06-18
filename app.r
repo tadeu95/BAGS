@@ -603,41 +603,41 @@ create_fasta=function(taxon19){
 #####USER INTERFACE
 
 ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.1")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade system",
-       
-####HOME TAB
+                 
+                 ####HOME TAB
                  tabPanel(title="HOME", setBackgroundColor(
-    color = c("#e6f9ff", "#7aa8b8"),
-    gradient = "linear",
-    direction = "top"
-  ),
-      
-  fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
-           column(2,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"))),column(1,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "197px", height ="70")))),tags$br(),
-  tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),fluidRow(
-  column(7,
-  tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
-  tags$h4(tags$p("BAGS emerged as a response to the growing awareness of the susceptibility of DNA barcode reference libraries to several types of errors and inconsistencies. 
+                   color = c("#e6f9ff", "#7aa8b8"),
+                   gradient = "linear",
+                   direction = "top"
+                 ),
+                 
+                 fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
+                          column(2,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"))),column(1,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "197px", height ="70")))),tags$br(),
+                 tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),fluidRow(
+                   column(7,
+                          tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
+                                   tags$h4(tags$p("BAGS emerged as a response to the growing awareness of the susceptibility of DNA barcode reference libraries to several types of errors and inconsistencies. 
                  These can arise at various stages of the barcoding pipeline, from the collection and identification of the specimen, through the DNA sequencing and subsequent 
                  uploading of the data to DNA sequence repositories, thus becoming potential liabilities for scientific studies which use DNA barcodes as their basis, such as metabarcoding.",tags$br(),tags$br(),
-                 "BAGS enables the user to generate reference libraries which point out incongruencies between the species names and the sequences clustered in BINs, optimizing the process of selecting the most reliable specimen records and species to work with, according to the available data. This application is also meant to facilitate revision and curation of the reference libraries. 
+                                                  "BAGS enables the user to generate reference libraries which point out incongruencies between the species names and the sequences clustered in BINs, optimizing the process of selecting the most reliable specimen records and species to work with, according to the available data. This application is also meant to facilitate revision and curation of the reference libraries. 
                  Indeed, we encourage users of BAGS and of publicly available reference libraries, to retribute to the communitty by either contributing DNA barcodes to further expand the libraries or to review and curate data.",
-                 tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mines and subsequently performs post-barcoding auditing and annotation 
+                                                  tags$br(),tags$br(),"Given one or more taxonomic groups present in the",tags$a(href="http://www.boldsystems.org/","BOLD database,",target="_blank"),"or a user-provided species list (in the form of a tsv file), BAGS mines and subsequently performs post-barcoding auditing and annotation 
                  of a DNA barcode library of COI-5P sequences in an automated way.  BAGS features the following tools and options:"))),
-  tags$div(style="text-align:justify",tags$br(),tags$h4(tags$ol(
-    tags$li("User library selection - taxa search or user-provided species list."),tags$br(),
-    tags$li("Library compilation - application of quality filters to the sequences and specimen data"),tags$br(),
-    tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
-    tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
-    tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br(),
-    fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","GitHub repository",target="_blank")))))
-    )),column(5,align="center",tags$br(),tags$br(),tags$br(),
-                  tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
-  tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h3(tags$b("WORKFLOW"))),tags$br(),
-                                                                                                                tags$div(style="text-align:justify",tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
-                                                                                                                                                                   tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),
-                                                                                                                                                                   "considering that intermediate taxa are usually the most likely to be absent. Additionally, the spelling of the taxa should be identical to the spelling according to the information at BOLD.",
-                                                                                                                                                                   tags$br(), tags$br(),
-                                                                                                                                                                   "The app has three main options: download a tsv library for every species belonging to the taxa,
+                          tags$div(style="text-align:justify",tags$br(),tags$h4(tags$ol(
+                            tags$li("User library selection - taxa search or user-provided species list."),tags$br(),
+                            tags$li("Library compilation - application of quality filters to the sequences and specimen data"),tags$br(),
+                            tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
+                            tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
+                            tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br(),
+                            fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","GitHub repository",target="_blank")))))
+                          )),column(5,align="center",tags$br(),tags$br(),tags$br(),
+                                    tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
+                   tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h3(tags$b("WORKFLOW"))),tags$br(),
+                                                                                                                                 tags$div(style="text-align:justify",tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
+                                                                                                                                                                                    tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),
+                                                                                                                                                                                    "considering that intermediate taxa are usually the most likely to be absent. Additionally, the spelling of the taxa should be identical to the spelling according to the information at BOLD.",
+                                                                                                                                                                                    tags$br(), tags$br(),
+                                                                                                                                                                                    "The app has three main options: download a tsv library for every species belonging to the taxa,
                                                     download a tsv library for only marine species belonging to the taxa or download a tsv library for only non-marine species belonging to the taxa.
                                                     ",tags$br(),tags$br(),"Then, after you enter the name of the taxonomic group/groups or enter a file with a list of species names, a data set
                                                      will be created and curated following these steps:", tags$br(),tags$br(),tags$div(style="text-align:justify",tags$ol(
@@ -651,160 +651,162 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                            This is achieved using the", tags$a(href="http://www.marinespecies.org/","WoRMS database,",target="_blank"),"therefore, the download and annotation will take longer."), tags$br(),
                                                        tags$li("Lastly, according to the quality and availability of the data of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
                            Then, several reference libraries in fasta format are created, which can be downloaded individually."))))))),column(1,align="right"))),
-  tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("GRADES"))),fluidRow(column(12,align="center",tags$u(tags$h3(tags$b("GRADES"))))),tags$br(),
-           
-           fluidRow(column(1,align="left"),column(10,align="center",tags$div(style="text-align:justify",tags$h4(tags$p("The assignment of each grade is based on the quality, availability and replicability of the data and metadata for each species, as well as
+                   tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("GRADES"))),fluidRow(column(12,align="center",tags$u(tags$h3(tags$b("GRADES"))))),tags$br(),
+                            
+                            fluidRow(column(1,align="left"),column(10,align="center",tags$div(style="text-align:justify",tags$h4(tags$p("The assignment of each grade is based on the quality, availability and replicability of the data and metadata for each species, as well as
                                                      the quality and congruence of the COI-5P sequences, evaluated in accordance to their ",
-                                                                                                                       tags$a(href="http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home", "Barcode Index Number (BIN).", target="_blank"),
-                                                                                                                       column(1,align="right"),tags$br(),
-                                                                                                                       "The BIN System is an online framework at",tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"),"that generates Operational Taxonomic Units (OTUS)
+                                                                                                                                        tags$a(href="http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home", "Barcode Index Number (BIN).", target="_blank"),
+                                                                                                                                        column(1,align="right"),tags$br(),
+                                                                                                                                        "The BIN System is an online framework at",tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"),"that generates Operational Taxonomic Units (OTUS)
                     by clustering barcode sequences algorithmically, grouping them in a manner that ideally, mirrors their respective specimen morphological identification."),tags$br(),
-                                                                                                                tags$p("The grades are attributed to each species according to the following criteria:"),tags$br(),
-                                                                                                                tags$ul(tags$li(tags$strong(tags$span(style="color:#1a1aff","Grade A "),"Consolidated concordance"),"The morphospecies is assigned a unique BIN, which is also assigned
+                                                                                                                                 tags$p("The grades are attributed to each species according to the following criteria:"),tags$br(),
+                                                                                                                                 tags$ul(tags$li(tags$strong(tags$span(style="color:#1a1aff","Grade A "),"Consolidated concordance"),"The morphospecies is assigned a unique BIN, which is also assigned
 uniquely to that species, plus the species has more than 10 specimens present in the library"), tags$br(),
-                                                                                                                        tags$li(tags$strong(tags$span(style="color:#00b33c","Grade B "),"Basal concordance"),"The morphospecies is assigned a unique BIN, which is also assigned
+                                                                                                                                         tags$li(tags$strong(tags$span(style="color:#00b33c","Grade B "),"Basal concordance"),"The morphospecies is assigned a unique BIN, which is also assigned
 uniquely to that species, plus the species has 10 or less specimens present in the reference library"),tags$br(),
-                                                                                                                        tags$li(tags$strong(tags$span(style="color:#cca300","Grade C "),"Multiple BINs"),"The morphospecies is assigned more than one different
+                                                                                                                                         tags$li(tags$strong(tags$span(style="color:#cca300","Grade C "),"Multiple BINs"),"The morphospecies is assigned more than one different
 BINs, but each of those BINs are assigned exclusively to that species"),tags$br(),
-                                                                                                                        tags$li(tags$strong(tags$span(style="color:#ff6600","Grade D "),"Insufficient data"),"Species is not assigned discordantly, but it has less than 3 specimens available in the reference library "),tags$br(),
-                                                                                                                        tags$li(tags$strong(tags$span(style="color:#cc0000","Grade E "),"Discordant species assignment"),"Species assigned to a BIN that is
+                                                                                                                                         tags$li(tags$strong(tags$span(style="color:#ff6600","Grade D "),"Insufficient data"),"Species is not assigned discordantly, but it has less than 3 specimens available in the reference library "),tags$br(),
+                                                                                                                                         tags$li(tags$strong(tags$span(style="color:#cc0000","Grade E "),"Discordant species assignment"),"Species assigned to a BIN that is
 assigned to more than one different species. The specimen may match with a different
 species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/scheme_grades3a2aece1f92bb98a.png', width = "808px", height ="499px")),tags$br(),
-                                                  tags$br(),tags$br(),tags$p(tags$strong(("The grades were adapted from the following studies:"))),
-                                                  tags$div(style="text-align:justify",tags$ul(tags$li("Costa, Filipe O., Landi, M., Martins, R., Costa, M. H., Costa, M. E., Carneiro, M., . Carvalho, G. R. (2012). A ranking system for 
+                                                                   tags$br(),tags$br(),tags$p(tags$strong(("The grades were adapted from the following studies:"))),
+                                                                   tags$div(style="text-align:justify",tags$ul(tags$li("Costa, Filipe O., Landi, M., Martins, R., Costa, M. H., Costa, M. E., Carneiro, M., . Carvalho, G. R. (2012). A ranking system for 
                           reference libraries of DNA barcodes: application to marine fish species from Portugal. PloS One, 7(4), 1-9. doi: 10.1371/journal.pone.0035858"),
-                                                                                              tags$br(),
-                                                                                              tags$li("Oliveira, L. M., Knebelsberger, T., Landi, M., Soares, P., Raupach, M. J., & Costa, F. O. (2016). Assembling and auditing a 
+                                                                                                               tags$br(),
+                                                                                                               tags$li("Oliveira, L. M., Knebelsberger, T., Landi, M., Soares, P., Raupach, M. J., & Costa, F. O. (2016). Assembling and auditing a 
                           comprehensive DNA barcode reference library for European marine fishes. Journal of Fish Biology, 89(6), 2741-2754. doi: 10.1111/jfb.13169")))))))),
-
-########### DOWNLOAD AND AUDIT DATA SETS TAB
-
-  tabPanel(title="TAXA FOR AUDITING",
-           #NORMAL
-           tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("TAXA SELECTION"))),tags$br(),tabsetPanel(type="pills", 
-                                                                                                                           tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Any biome"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for all species"))))),tags$br(),
-                                                                                                                                                           textInputAddon(inputId="taxa2",addon=icon("search"),width="500px",label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Carnivora,Ursidae,Artiodactyla,Soricomorpha"),
-                                                                                                                                                           downloadButton("downloadData_2","Download"))),
-                                            #MARINE  
-                                            tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Marine Taxa Only"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for marine species"))))),tags$br(),
-                                                                                                                                      textInputAddon(inputId="taxa",addon=icon("search"),width="500px",
-                                                                                                                                                     label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option selects only species that are considered as marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-                                                                                                                                      downloadButton("downloadData","Download"))),
-                                            
-                                            #NON-MARINE  
-                                            tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Excluding Marine Taxa"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for non-marine species"))))),tags$br(),
-                                                                                                                                          textInputAddon(inputId="taxa_non",addon=icon("search"),width="500px",
-                                                                                                                                                         label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option excludes all species which are assigned exclusively to marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
-                                                                                                                                          downloadButton("downloadData_non","Download"))))),
-            #CHECKLIST
-            tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("UPLOAD SPECIES LIST"))),
-                     column(12,align="center", tags$br(),
-                            tags$h3(align="center",tags$em(tags$strong(tags$u(tags$span(style="color:#000000","Download, audit and annotate library for species list"))))), tags$br(),
-                            fileInput("file1", "Upload a txt or tsv file comprising a list of species:",buttonLabel = "Browse for a file",
-                                      multiple = FALSE, width="350px",
-                                      accept = c("text/tsv",
-                                                 "text/tab-separated-values,text/plain",
-                                                 ".tsv",".txt")),
-                            tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: Untick the header checkbox if your file does not have a header for the species column."))),
-                            checkboxInput("header", "Header", TRUE),
-                            radioButtons("disp", "Display",
-                                         choices = c(Head = "head",
-                                                     All = "all"),
-                                         selected = "head"),tableOutput("contents"),
-                            downloadButton("download_1","Download"))),
-
-
-            fluidRow(column(12,align="center",tags$br(),tags$br(),
-                                            tags$span(style="color:#990000", tags$h6(tags$b("NOTE: Since the download process includes the auditing and annotation of the library, the report is ready once the download is concluded."))),
-                            tags$span(style="color:#990000", tags$h6(tags$b("Make sure to refresh the page every time you are about to download a new library."))))))),
-
-
-############ DOWNLOAD REFERENCE LIBRARIES IN FASTA FORMAT TAB
-          tabPanel(title="DOWNLOAD GRADED LIBRARIES",
-                   
-    fluidRow(column(12,align="center",
-                    #INDIVIDUAL
-                    tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("INDIVIDUAL"))), tags$br(),
-                                                     tags$span(style="color:#000000", tags$h3(align="center",
-                                                                                              tags$u(tags$em(tags$strong("Download graded libraries in fasta format"))))), tags$br(),
-                                                     tags$h4(tags$strong("Choose which grades to include in your library:")),
-                                                     tags$span(style="color:#b94646", tags$h6(tags$b("NOTE: Make sure the data set download is already completed"))),
-                                                     tags$br(),
-                                                     
-                                                     tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#468bb9","grade A"))),
-                                                     tags$style(type="text/css", "#downloadData2 {background-color:white;color:#0066ff}"),
-                                                     downloadButton('downloadData2', 'Download A library',class = "butt1"), tags$br(),tags$br(),
-                                                     
-                                                     tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grade B"))),
-                                                     tags$style(type="text/css", "#downloadData21 {background-color:white;color:#009900}"),
-                                                     downloadButton('downloadData21','Download B library',class = "butt2"),tags$br(),tags$br(),
-                                                     
-                                                     tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grade C"))),
-                                                     tags$style(type="text/css", "#downloadData22 {background-color:white;color:#ccad33}"),
-                                                     downloadButton('downloadData22','Download C library',class="butt3"),tags$br(),tags$br(),
-                                                     
-                                                     tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grade D"))),
-                                                     tags$style(type="text/css", "#downloadData23 {background-color:white;color:#ff6600}"),
-                                                     downloadButton('downloadData23','Download D library',class="butt4"),tags$br(),tags$br(),
-                                                     
-                                                     tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#cc0000","grade E"))),
-                                                     tags$style(type="text/css", "#downloadData24 {background-color:white;color:#ff0000}"),
-                                                     downloadButton('downloadData24','Download E library',class="butt5"),tags$br(),tags$br(),tags$br(),tags$br()),
-                    #GROUPED
-                                tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("GROUPED"))), tags$br(),
-                                         tags$span(style="color:#000000", tags$h3(align="center",
-                                                                                  tags$u(tags$em(tags$strong("Download graded libraries in fasta format"))))), tags$br(),
-                                         tags$h4(tags$strong("Choose which grades to include in your library:")),
-                                         tags$span(style="color:#b94646", tags$h6(tags$b("NOTE: Make sure the data set download is already completed"))),
-                                         tags$br(),                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grades A and B"))),
-                                         tags$style(type="text/css", "#downloadData3 {background-color:white;color:#4d804d}"),
-                                         downloadButton('downloadData3','Download AB library',class="butt6"),
-                                         tags$br(),
-                                         tags$br(),
-                                         tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grades A, B and C"))),
-                                         tags$style(type="text/css", "#downloadData4 {background-color:white;color:#ccad33}"),
-                                         downloadButton('downloadData4','Download ABC library',class="butt7"),
-                                         tags$br(),
-                                         tags$br(),
-                                         
-                                         tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grades A, B, C and D"))),
-                                         tags$style(type="text/css", "#downloadData6 {background-color:white;color:#ff6600}"),
-                                         downloadButton('downloadData6','Download ABCD library',class="butt8"),
-                                         tags$br(),
-                                         tags$br(),
-                                         
-                                         tags$h5(tags$strong("Graded library including species with",tags$span(style="color:#cc0000","all grades assigned"))),
-                                         tags$style(type="text/css", "#downloadData5 {background-color:white;color:#cc0000}"),
-                                         downloadButton('downloadData5','Download ABCDE library',class="butt9"),
-                                         tags$br(),
-                                         tags$br()))))),
-  
-########## SUMMARY UI 
-  tabPanel(title="AUDITING REPORT",
-           fluidRow(tags$span(style="color:#000000", tags$h3(align="center",
-                            tags$em(tags$u(tags$strong("Library auditing report")))))), tags$br(),
-           fluidRow(column(12,align="center",actionBttn("clicks3",size="sm",icon =icon("arrow-circle-right"),label="REPORT"))),tags$br(), fluidRow(column(12,align="center",tags$h4(uiOutput("summary")))),
-  fluidRow(tags$span(style="color:#000000", tags$h3(align="center",
-                          tags$em(tags$u(tags$strong("Barplots display"))))),tags$br(),tags$br()),
-  fluidRow(column(6,align="center",
-                  actionBttn("clicks",size="sm",icon=icon("arrow-circle-right"),label="NUMBER OF SPECIMENS PER GRADE")),
-                  column(6,align="center",actionBttn("clicks2",size="sm",icon=icon("arrow-circle-right"),label="NUMBER OF SPECIES PER GRADE"))),
-  fluidRow(column(6,plotOutput("bar1")),
-           column(6,plotOutput("bar2")))),
-
-#CONTACTS/RESOURCES
-tabPanel(title="CONTACTS AND RESOURCES",fluidRow(column(1,align="lefter"),column(3,align="left",tags$h3(tags$strong("How to cite")),tags$br(),#tags$h4(tags$a(href="http://paper.com/", "Link with paper title for citing", target="_blank"))),
-                                                                                             ),column(4,align="center",tags$h3(tags$strong("Contacts")),tags$br(),
-                                                                                                    tags$ul(tags$h4(tags$li("contact1")),tags$h4(tags$li("contact2")),tags$h4(tags$li("contact3")),tags$h4(tags$li("contacts4")))),
-                                                                                             column(3,align="right",tags$h3(tags$strong(("Useful links")),column(1,align="right"),tags$br(),tags$ul(tags$li(tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="https://ibol.org/programs/bioscan/", "BIOSCAN", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="https://ibol.org/", "iBOL", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="http://marinespecies.org/", "WoRMS", target="_blank"))),
-                                                                                                                                                                             tags$li(tags$h4(tags$a(href="https://dnaqua.net/ ", "DNAqua-Net", target="_blank"))))))),
-         tags$br(),tags$br(),tags$br(),tags$br(),tags$br(),
-         fluidRow(column(1,align="left"),column(10,align="center",  tags$div(style="text-align:justify",tags$h5(tags$strong("Disclaimer")),
-                                                                             tags$h5(tags$p("Despite the fact that utmost care has been taken by us to guarantee the effectivness and reliability of the web application,
+                 
+                 ########### DOWNLOAD AND AUDIT DATA SETS TAB
+                 
+                 tabPanel(title="TAXA FOR AUDITING",
+                          #NORMAL
+                          tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("TAXA SELECTION"))),tags$br(),tabsetPanel(type="pills", 
+                                                                                                                                                    tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Any biome"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for all species"))))),tags$br(),
+                                                                                                                                                                                                                                            textInputAddon(inputId="taxa2",addon=icon("search"),width="500px",label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Carnivora,Ursidae,Artiodactyla,Soricomorpha"),
+                                                                                                                                                                                                                                            downloadButton("downloadData_2","Download"))),
+                                                                                                                                                    #MARINE  
+                                                                                                                                                    tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Marine Taxa Only"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for marine species"))))),tags$br(),
+                                                                                                                                                                                                                                                   textInputAddon(inputId="taxa",addon=icon("search"),width="500px",
+                                                                                                                                                                                                                                                                  label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option selects only species that are considered as marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+                                                                                                                                                                                                                                                   downloadButton("downloadData","Download"))),
+                                                                                                                                                    
+                                                                                                                                                    #NON-MARINE  
+                                                                                                                                                    tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Excluding Marine Taxa"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for non-marine species"))))),tags$br(),
+                                                                                                                                                                                                                                                        textInputAddon(inputId="taxa_non",addon=icon("search"),width="500px",
+                                                                                                                                                                                                                                                                       label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option excludes all species which are assigned exclusively to marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+                                                                                                                                                                                                                                                        downloadButton("downloadData_non","Download"))))),
+                                      #CHECKLIST
+                                      tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("UPLOAD SPECIES LIST"))),
+                                               column(12,align="center", tags$br(),
+                                                      tags$h3(align="center",tags$em(tags$strong(tags$u(tags$span(style="color:#000000","Download, audit and annotate library for species list"))))), tags$br(),
+                                                      fileInput("file1", "Upload a txt or tsv file comprising a list of species:",buttonLabel = "Browse for a file",
+                                                                multiple = FALSE, width="350px",
+                                                                accept = c("text/tsv",
+                                                                           "text/tab-separated-values,text/plain",
+                                                                           ".tsv",".txt")),
+                                                      tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: Untick the header checkbox if your file does not have a header for the species column."))),
+                                                      checkboxInput("header", "Header", TRUE),
+                                                      radioButtons("disp", "Display",
+                                                                   choices = c(Head = "head",
+                                                                               All = "all"),
+                                                                   selected = "head"),tableOutput("contents"),
+                                                      downloadButton("download_1","Download"))),
+                                      
+                                      
+                                      fluidRow(column(12,align="center",tags$br(),tags$br(),
+                                                      tags$span(style="color:#990000", tags$h6(tags$b("NOTE: Since the download process includes the auditing and annotation of the library, the report is ready once the download is concluded."))),
+                                                      tags$span(style="color:#990000", tags$h6(tags$b("Make sure to refresh the page every time you are about to download a new library."))))))),
+                 
+                 
+                 ############ DOWNLOAD REFERENCE LIBRARIES IN FASTA FORMAT TAB
+                 tabPanel(title="DOWNLOAD GRADED LIBRARIES",
+                          
+                          fluidRow(column(12,align="center",
+                                          #INDIVIDUAL
+                                          tabsetPanel(type="tabs",tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("INDIVIDUAL"))), tags$br(),
+                                                                           tags$span(style="color:#000000", tags$h3(align="center",
+                                                                                                                    tags$u(tags$em(tags$strong("Download graded libraries in fasta format"))))), tags$br(),
+                                                                           tags$h4(tags$strong("Choose which grades to include in your library:")),
+                                                                           tags$span(style="color:#b94646", tags$h6(tags$b("NOTE: Make sure the data set download is already completed"))),
+                                                                           tags$br(),
+                                                                           
+                                                                           tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#468bb9","grade A"))),
+                                                                           tags$style(type="text/css", "#downloadData2 {background-color:white;color:#0066ff}"),
+                                                                           downloadButton('downloadData2', 'Download A library',class = "butt1"), tags$br(),tags$br(),
+                                                                           
+                                                                           tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grade B"))),
+                                                                           tags$style(type="text/css", "#downloadData21 {background-color:white;color:#009900}"),
+                                                                           downloadButton('downloadData21','Download B library',class = "butt2"),tags$br(),tags$br(),
+                                                                           
+                                                                           tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grade C"))),
+                                                                           tags$style(type="text/css", "#downloadData22 {background-color:white;color:#ccad33}"),
+                                                                           downloadButton('downloadData22','Download C library',class="butt3"),tags$br(),tags$br(),
+                                                                           
+                                                                           tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grade D"))),
+                                                                           tags$style(type="text/css", "#downloadData23 {background-color:white;color:#ff6600}"),
+                                                                           downloadButton('downloadData23','Download D library',class="butt4"),tags$br(),tags$br(),
+                                                                           
+                                                                           tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#cc0000","grade E"))),
+                                                                           tags$style(type="text/css", "#downloadData24 {background-color:white;color:#ff0000}"),
+                                                                           downloadButton('downloadData24','Download E library',class="butt5"),tags$br(),tags$br(),tags$br(),tags$br()),
+                                                      #GROUPED
+                                                      tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("GROUPED"))), tags$br(),
+                                                               tags$span(style="color:#000000", tags$h3(align="center",
+                                                                                                        tags$u(tags$em(tags$strong("Download graded libraries in fasta format"))))), tags$br(),
+                                                               tags$h4(tags$strong("Choose which grades to include in your library:")),
+                                                               tags$span(style="color:#b94646", tags$h6(tags$b("NOTE: Make sure the data set download is already completed"))),
+                                                               tags$br(),                                      tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#4d804d","grades A and B"))),
+                                                               tags$style(type="text/css", "#downloadData3 {background-color:white;color:#4d804d}"),
+                                                               downloadButton('downloadData3','Download AB library',class="butt6"),
+                                                               tags$br(),
+                                                               tags$br(),
+                                                               tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ccad33","grades A, B and C"))),
+                                                               tags$style(type="text/css", "#downloadData4 {background-color:white;color:#ccad33}"),
+                                                               downloadButton('downloadData4','Download ABC library',class="butt7"),
+                                                               tags$br(),
+                                                               tags$br(),
+                                                               
+                                                               tags$h5(tags$strong("Graded library including only species with",tags$span(style="color:#ff6600","grades A, B, C and D"))),
+                                                               tags$style(type="text/css", "#downloadData6 {background-color:white;color:#ff6600}"),
+                                                               downloadButton('downloadData6','Download ABCD library',class="butt8"),
+                                                               tags$br(),
+                                                               tags$br(),
+                                                               
+                                                               tags$h5(tags$strong("Graded library including species with",tags$span(style="color:#cc0000","all grades assigned"))),
+                                                               tags$style(type="text/css", "#downloadData5 {background-color:white;color:#cc0000}"),
+                                                               downloadButton('downloadData5','Download ABCDE library',class="butt9"),
+                                                               tags$br(),
+                                                               tags$br()))))),
+                 
+                 ########## SUMMARY UI 
+                 tabPanel(title="AUDITING REPORT",
+                          fluidRow(tags$span(style="color:#000000", tags$h3(align="center",
+                                                                            tags$em(tags$u(tags$strong("Library auditing report")))))), tags$br(),
+                          fluidRow(column(12,align="center",actionBttn("clicks3",size="sm",icon =icon("arrow-circle-right"),label="REPORT"))),tags$br(), fluidRow(column(12,align="center",tags$h4(uiOutput("summary")))),
+                          fluidRow(tags$span(style="color:#000000", tags$h3(align="center",
+                                                                            tags$em(tags$u(tags$strong("Barplots display"))))),tags$br(),tags$br()),
+                          fluidRow(column(6,align="center",
+                                          actionBttn("clicks",size="sm",icon=icon("arrow-circle-right"),label="NUMBER OF SPECIMENS PER GRADE")),
+                                   column(6,align="center",actionBttn("clicks2",size="sm",icon=icon("arrow-circle-right"),label="NUMBER OF SPECIES PER GRADE"))),
+                          fluidRow(column(6,plotOutput("bar1")),
+                                   column(6,plotOutput("bar2")))),
+                 
+                 #CONTACTS/RESOURCES
+                 tabPanel(title="CONTACT AND RESOURCES", fluidRow(column(12,align="center",
+                                                                         tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, , Pedro Soares, Filipe Costa"),
+                                                                         tags$h4(tags$strong("BAGS: an automated Barcode, Audit & Grade System for DNA barcode reference libraries.")),
+                                                                         tags$h4(tags$a(href="https://www.authorea.com/users/317355/articles/457103-bags-an-automated-barcode-audit-grade-system-for-dna-barcode-reference-libraries?commit=ab46b470bd860bf25840f93eb5c51a4d02e32c70","DOI: 10.22541/au.159135669.99561145",target="_blank")),tags$br(),
+                                                                         tags$h3(tags$strong("Useful links:")),
+                                                                         tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank")),
+                                                                         tags$h4(tags$a(href="http://marinespecies.org/", "WoRMS", target="_blank")),
+                                                                         tags$h4(tags$a(href="https://ibol.org/", "iBOL", target="_blank")),
+                                                                         tags$h4(tags$a(href="https://dnaqua.net/", "DNAqua-Net", target="_blank")),
+                                                                         tags$h4(tags$a(href="https://cbma.uminho.pt/", "CBMA", target="_blank")),
+                                                                         tags$h4(tags$a(href="http://ib-s.uminho.pt/", "IB-S", target="_blank")),
+                                                                         tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank")))),
+                          fluidRow(column(1,align="left"),column(10,align="center",  tags$div(style="text-align:justify",tags$h5(tags$strong("Disclaimer")),
+                                                                                              tags$h5(tags$p("Despite the fact that utmost care has been taken by us to guarantee the effectivness and reliability of the web application,
                           the use of the application is without any kind of warranty, expressed or implied. In no event shall the authors be liable for any damages of any type.")))),column(1,align="right"))))
 
 
@@ -818,11 +820,11 @@ server <- function(input, output){
     
     
     req(input$file1)
-
+    
     tryCatch(
       {
         checklist <<- read.delim(input$file1$datapath,
-                       header = input$header)
+                                 header = input$header)
       },
       error = function(e) {
         stop(safeError(e))
@@ -853,7 +855,7 @@ server <- function(input, output){
       )
     }
   )
-##################### DOWNLOAD GENERAL TSV
+  ##################### DOWNLOAD GENERAL TSV
   taxaInput_2 <- reactive({grades2(unlist(strsplit(input$taxa2, ",")))})
   output$downloadData_2 <- downloadHandler(
     filename = function() {
@@ -870,8 +872,8 @@ server <- function(input, output){
       )
     }
   )
-
-#################### DOWNLOAD MARINE TSV   
+  
+  #################### DOWNLOAD MARINE TSV   
   taxaInput <- reactive({grades(unlist(strsplit(input$taxa, ",")))})
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -888,7 +890,7 @@ server <- function(input, output){
       )
     }
   )
-#################### DOWNLOAD NON-MARINE TSV   
+  #################### DOWNLOAD NON-MARINE TSV   
   taxaInput_non <- reactive({grades_nonmarine(unlist(strsplit(input$taxa_non, ",")))})
   output$downloadData_non <- downloadHandler(
     filename = function() {
@@ -905,9 +907,9 @@ server <- function(input, output){
       )
     }
   )
-####### REPORT EVENTS
+  ####### REPORT EVENTS
   summary_reac<-eventReactive(input$clicks3,{
-
+    
     tagList(  
       
       tags$span(style="color:#2e2e1f",tags$h4(tags$strong(paste0("Taxa name: ",to_upper_camel_case(input$taxa2,sep_out=",")))),
@@ -916,9 +918,9 @@ server <- function(input, output){
                 
                 
                 
-                ),tags$br(),
+      ),tags$br(),
       tags$p(tags$strong("Number of species:"),length(unique(taxon19$species))),
-                        tags$p(tags$strong("Number of BINs:"),length(unique(taxon19$BIN))),
+      tags$p(tags$strong("Number of BINs:"),length(unique(taxon19$BIN))),
       tags$p(tags$strong("Total Number of specimens in reference library:"),length(taxon19$species)),
       tags$br(),
       tags$h4(tags$strong("Specimens")),
@@ -932,7 +934,7 @@ server <- function(input, output){
              signif((as.numeric(length(taxon19$species[taxon19$grade=="D"])*100)/length(taxon19$species)),digits=3),"%"),
       tags$p(tags$strong("Number of specimens with" ,tags$span(style="color:#cc0000","E") ,"grade:"),as.numeric(length(taxon19$species[taxon19$grade=="E"]))," ",tags$strong("| Percentage:"),
              signif((as.numeric(length(taxon19$species[taxon19$grade=="E"])*100)/length(taxon19$species)),digits=3),"%"),
- 
+      
       tags$br(),
       tags$br(),
       tags$h4(tags$strong("Species")),
@@ -946,9 +948,9 @@ server <- function(input, output){
              signif((as.numeric(length(unique(taxon19$species[taxon19$grade=="D"]))*100)/length(unique(taxon19$species))),digits=3),"%"),
       tags$p(tags$strong("Number of species with" ,tags$span(style="color:#cc0000","E") ,"grade:"),as.numeric(length(unique(taxon19$species[taxon19$grade=="E"])))," ",tags$strong("| Percentage:"),
              signif((as.numeric(length(unique(taxon19$species[taxon19$grade=="E"]))*100)/length(unique(taxon19$species))),digits=3),"%")
-
-
-            
+      
+      
+      
     )
   })
   output$summary <- renderUI({ summary_reac() })
@@ -958,8 +960,8 @@ server <- function(input, output){
   barplot2_reac<-eventReactive(input$clicks2,{plot_summary_species(taxon19)})
   output$bar2<-renderPlot(barplot2_reac(),bg="transparent", execOnResize = TRUE)
   
-####### DOWNLOAD REFERENCE LIBRARIES IN FASTA FORMAT
-#INDIVIDUAL
+  ####### DOWNLOAD REFERENCE LIBRARIES IN FASTA FORMAT
+  #INDIVIDUAL
   fastaInput <- reactive({create_A(taxon19)})
   fastaInput11 <- reactive({create_B(taxon19)})
   fastaInput12 <- reactive({create_C(taxon19)})
@@ -1049,12 +1051,12 @@ server <- function(input, output){
           dataframe2fas(fastaInput14(),file)
         })
     })
-#GROUPED
+  #GROUPED
   fastaInput2 <- reactive({create_AB(taxon19)})
   fastaInput3 <- reactive({create_ABC(taxon19)})
   fastaInput5 <- reactive({create_ABCD(taxon19)})
   fastaInput4 <- reactive({create_fasta(taxon19)})
-
+  
   output$downloadData3 <- downloadHandler(
     filename = function() {
       paste("grade_AB_library", ".fasta")
@@ -1122,4 +1124,5 @@ server <- function(input, output){
 
 ############## RUNNING THE APP
 shinyApp(ui=ui,server=server)
+
 
