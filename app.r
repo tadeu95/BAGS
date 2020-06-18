@@ -794,7 +794,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                  
                  #CONTACTS/RESOURCES
                  tabPanel(title="CONTACT AND RESOURCES", fluidRow(column(12,align="center",
-                                                                         tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, , Pedro Soares, Filipe Costa"),
+                                                                         tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, Torbjørn Ekrem, Pedro Soares, Filipe O Costa"),
                                                                          tags$h4(tags$strong("BAGS: an automated Barcode, Audit & Grade System for DNA barcode reference libraries.")),
                                                                          tags$h4(tags$a(href="https://www.authorea.com/users/317355/articles/457103-bags-an-automated-barcode-audit-grade-system-for-dna-barcode-reference-libraries?commit=ab46b470bd860bf25840f93eb5c51a4d02e32c70","DOI: 10.22541/au.159135669.99561145",target="_blank")),tags$br(),
                                                                          tags$h3(tags$strong("Useful links:")),
