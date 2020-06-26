@@ -1,7 +1,7 @@
 
 ############################################
 ############################################
-### BAGS - Barcode, Audit & Grade System ###
+### BAGS - Barcode, Audit & Grade system ###
 ############################################
 ############################################
 
@@ -602,7 +602,7 @@ create_fasta=function(taxon19){
 #########
 #####USER INTERFACE
 
-ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.1")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade system",
+ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.1")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade System",
                  
                  ####HOME TAB
                  tabPanel(title="HOME", setBackgroundColor(
@@ -612,8 +612,8 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                  ),
                  
                  fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
-                          column(2,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"))),column(1,div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "197px", height ="70")))),tags$br(),
-                 tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),fluidRow(
+                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
+                 tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),tags$br(),fluidRow(
                    column(7,
                           tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
                                    tags$h4(tags$p("BAGS emerged as a response to the growing awareness of the susceptibility of DNA barcode reference libraries to several types of errors and inconsistencies. 
@@ -628,9 +628,8 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                             tags$li("Library compilation - application of quality filters to the sequences and specimen data"),tags$br(),
                             tags$li("Optional marine taxa selection/exclusion filter through the ",tags$a(href="http://www.marinespecies.org/","WoRMS database.",target="_blank")),tags$br(),
                             tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
-                            tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br(),
-                            fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","GitHub repository",target="_blank")))))
-                          )),column(5,align="center",tags$br(),tags$br(),tags$br(),
+                            tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br()
+                          )),column(5,align="center",tags$br(),
                                     tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
                    tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h3(tags$b("WORKFLOW"))),tags$br(),
                                                                                                                                  tags$div(style="text-align:justify",tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
@@ -804,7 +803,8 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                                                          tags$h4(tags$a(href="https://dnaqua.net/", "DNAqua-Net", target="_blank")),
                                                                          tags$h4(tags$a(href="https://cbma.uminho.pt/", "CBMA", target="_blank")),
                                                                          tags$h4(tags$a(href="http://ib-s.uminho.pt/", "IB-S", target="_blank")),
-                                                                         tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank")))),
+                                                                         tags$h4(tags$a(href="https://www.researchgate.net/lab/ME-Barcode-Molecular-Ecology-Biodiversity-and-DNA-barcoding-Filipe-O-Costa", "ME-Barcode", target="_blank")),tags$br(),tags$br(),tags$br(),
+                                                                         fluidRow(column(12,align="center",icon("github","fa-5x"),tags$strong(tags$h3(tags$a(href="https://github.com/tadeu95/BAGs","GitHub repository",target="_blank"))))))),tags$br(),tags$br(),tags$br(),
                           fluidRow(column(1,align="left"),column(10,align="center",  tags$div(style="text-align:justify",tags$h5(tags$strong("Disclaimer")),
                                                                                               tags$h5(tags$p("Despite the fact that utmost care has been taken by us to guarantee the effectivness and reliability of the web application,
                           the use of the application is without any kind of warranty, expressed or implied. In no event shall the authors be liable for any damages of any type.")))),column(1,align="right"))))
