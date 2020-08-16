@@ -38,7 +38,7 @@ bps<-fread(file_bps)
 
 
 #####GRADES CHECKLIST
-grades_checklist<-function(checklist){
+grades_checklist<-function(checklist,inputz,coordz){
   species<-unique(checklist[,1])
   x<-length(species)
   taxon_total = data.frame()
@@ -97,9 +97,11 @@ grades_checklist<-function(checklist){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  if (coordz){
+    taxon19<-taxon19[!(is.na(taxon19$lat)) | taxon19$country!="",]
+  }
   taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
-  taxon19<-taxon19[(taxon19$base_number>499),]
+  taxon19<-taxon19[(taxon19$base_number>=inputz),]
   np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
   taxon19$n_percent=np
   taxon19<-subset(taxon19,taxon19$n_percent<1)
@@ -151,7 +153,7 @@ grades_checklist<-function(checklist){
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
 #####IMPLEMENT RANKING SYSTEM FOR ALL TAXA
-grades2<-function(groups){
+grades2<-function(groups,inputz,coordz){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
@@ -198,9 +200,11 @@ grades2<-function(groups){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  if (coordz){
+    taxon19<-taxon19[!(is.na(taxon19$lat)) | taxon19$country!="",]
+  }
   taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
-  taxon19<-taxon19[(taxon19$base_number>499),]
+  taxon19<-taxon19[(taxon19$base_number>inputz),]
   np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
   taxon19$n_percent=np
   taxon19<-subset(taxon19,taxon19$n_percent<1)
@@ -252,7 +256,7 @@ grades2<-function(groups){
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
 ####IMPLEMENT RANKING SYSTEM MARINE TAXA
-grades<-function(groups){
+grades<-function(groups,inputz,coordz){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
@@ -308,9 +312,11 @@ grades<-function(groups){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  if (coordz){
+    taxon19<-taxon19[!(is.na(taxon19$lat)) | taxon19$country!="",]
+  }
   taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
-  taxon19<-taxon19[(taxon19$base_number>499),]
+  taxon19<-taxon19[(taxon19$base_number>inputz),]
   np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
   taxon19$n_percent=np
   taxon19<-subset(taxon19,taxon19$n_percent<1)
@@ -363,7 +369,7 @@ grades<-function(groups){
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
 ####IMPLEMENT RANKING SYSTEM NONMARINE TAXA
-grades_nonmarine<-function(groups){
+grades_nonmarine<-function(groups,inputz,coordz){
   taxon<-bold_seqspec(taxon=groups, format = "tsv")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
@@ -420,9 +426,11 @@ grades_nonmarine<-function(groups){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-  taxon19<-taxon19[!(is.na(taxon19$lattitude)) | taxon19$country!="",]
+  if (coordz){
+    taxon19<-taxon19[!(is.na(taxon19$lat)) | taxon19$country!="",]
+  }
   taxon19$base_number=str_count(taxon19$sequence, pattern="[A-Z]")
-  taxon19<-taxon19[(taxon19$base_number>499),]
+  taxon19<-taxon19[(taxon19$base_number>inputz),]
   np=(str_count(taxon19$sequence, "N")/str_count(taxon19$sequence, "[A-Z]"))*100
   taxon19$n_percent=np
   taxon19<-subset(taxon19,taxon19$n_percent<1)
@@ -602,7 +610,7 @@ create_fasta=function(taxon19){
 #########
 #####USER INTERFACE
 
-ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.1")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade System",
+ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.2")),inverse=TRUE,windowTitle="BAGS: Barcode, Audit & Grade System",
                  
                  ####HOME TAB
                  tabPanel(title="HOME", setBackgroundColor(
@@ -642,7 +650,7 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                                                      will be created and curated following these steps:", tags$br(),tags$br(),tags$div(style="text-align:justify",tags$ol(
                                                        tags$li("Downloading the data set in tsv file format, consisting of specimen data and its respective COI-5P sequence belonging to the chosen taxa, from the",
                                                                tags$a(href="http://boldsystems.org/index.php/resources/api", "BOLD Public Data Portal.", target="_blank")),tags$br(),
-                                                       tags$li("Filtering", tags$strong("out"), "the following from the data set:",tags$br(),tags$br(),tags$ul(tags$li("Specimens with sequences of length < 500bp"), tags$br(),
+                                                       tags$li("Filtering", tags$strong("out"), "the following from the data set:",tags$br(),tags$br(),tags$ul(tags$li("Specimens with sequences of length below the threshold chosen by the user"), tags$br(),
                                                                                                                                                                tags$li("Specimens without data on species name, BIN, lattitude or country of origin"),tags$br(),
                                                                                                                                                                tags$li("Ambiguous characters occasionally present in the species name and COI-5P sequences"),tags$br(),
                                                                                                                                                                tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most commonambiguous character"))),tags$br(), 
@@ -711,8 +719,9 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                                                                All = "all"),
                                                                    selected = "head"),tableOutput("contents"),
                                                       downloadButton("download_1","Download"))),
-                                      
-                                      
+                                      fluidRow(column(12, align="center",tags$br(),
+                                                      sliderInput("seqsize", "Minimum sequence size in base pairs:",min = 100, max = 650, value = 500),
+                                                      checkboxInput("rmv", "Remove records without data on country of origin or latitude", TRUE))),
                                       fluidRow(column(12,align="center",tags$br(),tags$br(),
                                                       tags$span(style="color:#990000", tags$h6(tags$b("NOTE: Since the download process includes the auditing and annotation of the library, the report is ready once the download is concluded."))),
                                                       tags$span(style="color:#990000", tags$h6(tags$b("Make sure to refresh the page every time you are about to download a new library."))))))),
@@ -839,7 +848,7 @@ server <- function(input, output){
     }
     
   })
-  taxaInput_10 <- reactive({grades_checklist(checklist)})
+  taxaInput_10 <- reactive({grades_checklist(checklist,as.integer(input$seqsize),input$rmv)})
   output$download_1<- downloadHandler(
     filename = function() {
       paste("Library_checklist",".tsv")
@@ -856,7 +865,7 @@ server <- function(input, output){
     }
   )
   ##################### DOWNLOAD GENERAL TSV
-  taxaInput_2 <- reactive({grades2(unlist(strsplit(input$taxa2, ",")))})
+  taxaInput_2 <- reactive({grades2(unlist(strsplit(input$taxa2, ",")),as.integer(input$seqsize),input$rmv)})
   output$downloadData_2 <- downloadHandler(
     filename = function() {
       paste(to_upper_camel_case(input$taxa2,sep_out=","), ".tsv")
@@ -874,7 +883,7 @@ server <- function(input, output){
   )
   
   #################### DOWNLOAD MARINE TSV   
-  taxaInput <- reactive({grades(unlist(strsplit(input$taxa, ",")))})
+  taxaInput <- reactive({grades(unlist(strsplit(input$taxa, ",")),as.integer(input$seqsize),input$rmv)})
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(to_upper_camel_case(input$taxa,sep_out=","), ".tsv")
@@ -891,7 +900,7 @@ server <- function(input, output){
     }
   )
   #################### DOWNLOAD NON-MARINE TSV   
-  taxaInput_non <- reactive({grades_nonmarine(unlist(strsplit(input$taxa_non, ",")))})
+  taxaInput_non <- reactive({grades_nonmarine(unlist(strsplit(input$taxa_non, ",")),as.integer(input$seqsize),input$rmv)})
   output$downloadData_non <- downloadHandler(
     filename = function() {
       paste(to_upper_camel_case(input$taxa_non,sep_out=","), ".tsv")
@@ -914,11 +923,7 @@ server <- function(input, output){
       
       tags$span(style="color:#2e2e1f",tags$h4(tags$strong(paste0("Taxa name: ",to_upper_camel_case(input$taxa2,sep_out=",")))),
                 tags$h4(tags$strong(paste0("Marine taxa name: ",to_upper_camel_case(input$taxa,sep_out=",")))),
-                tags$h4(tags$strong(paste0("Non-marine taxa name: ",to_upper_camel_case(input$taxa_non,sep_out=","))))
-                
-                
-                
-      ),tags$br(),
+                tags$h4(tags$strong(paste0("Non-marine taxa name: ",to_upper_camel_case(input$taxa_non,sep_out=","))))),tags$br(),
       tags$p(tags$strong("Number of species:"),length(unique(taxon19$species))),
       tags$p(tags$strong("Number of BINs:"),length(unique(taxon19$BIN))),
       tags$p(tags$strong("Total Number of specimens in reference library:"),length(taxon19$species)),
