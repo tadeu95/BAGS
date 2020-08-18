@@ -720,7 +720,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                                                    selected = "head"),tableOutput("contents"),
                                                       downloadButton("download_1","Download"))),
                                       fluidRow(column(12, align="center",tags$br(),
-                                                      sliderInput("seqsize", "Minimum sequence size in base pairs:",min = 400, max = 650, value = 500),
+                                                      sliderInput("seqsize", "Minimum sequence size in base pairs:",min = 350, max = 650, value = 500),
                                                       checkboxInput("rmv", "Remove records without data on country of origin or latitude", TRUE))),
                                       fluidRow(column(12,align="center",tags$br(),tags$br(),
                                                       tags$span(style="color:#990000", tags$h6(tags$b("NOTE: Since the download process includes the auditing and annotation of the library, the report is ready once the download is concluded."))),
