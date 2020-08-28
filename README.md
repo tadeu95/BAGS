@@ -38,4 +38,11 @@ install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fing
 6. After running the script, a window with the app will pop up, and you can click "open in browser" to run the app in your default browser if you're on RStudio. 
 If you're on RGui, the app will automatically open in your default browser.
 
+### Available links for direct access to BAGS:
+
+1. [Link1](https://tadeu-apps.shinyapps.io/bags)
+2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
+3. [Link3](https://tadeu-apps.shinyapps.io/bags3)
+4. [Link4](https://tadeu-apps.shinyapps.io/bags4)
+5. [Link5](https://tadeu-apps.shinyapps.io/bags5)
 
