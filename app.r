@@ -1,4 +1,4 @@
-
+options(shiny.maxRequestSize = 50*1024^2)
 ############################################
 ############################################
 ### BAGS - Barcode, Audit & Grade system ###
@@ -620,7 +620,7 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                  ),
                  
                  fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
-                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://www.picturepaste.ca/images/2020/04/08/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
+                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://i.ibb.co/RccHm87/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://i.ibb.co/1nnPWrX/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
                  tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),tags$br(),fluidRow(
                    column(7,
                           tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
@@ -638,7 +638,7 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                             tags$li("Auditing and annotation - implementation of the grade ranking system."),tags$br(),
                             tags$li("Output and annotation-based file sorting - fasta compilation according to grades and auditing report."))),tags$br(),tags$br(),tags$br(),tags$br()
                           )),column(5,align="center",tags$br(),
-                                    tags$img(src='https://www.picturepaste.ca/images/2020/04/07/global_scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
+                                    tags$img(src='https://i.ibb.co/6W5hN4s/global-scheme.png',width="433px",height="881"))),tags$br(),tags$br()),
                    tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("WORKFLOW"))), fluidRow(column(1,align="left"),column(10,align="center",tags$u(tags$h3(tags$b("WORKFLOW"))),tags$br(),
                                                                                                                                  tags$div(style="text-align:justify",tags$h4(tags$p("Firstly, to use the application you should make sure the taxonomic group or groups you want to annotate are present at the",
                                                                                                                                                                                     tags$a(href="http://www.boldsystems.org/","BOLD Systems database,",target="_blank"),
@@ -676,7 +676,7 @@ BINs, but each of those BINs are assigned exclusively to that species"),tags$br(
                                                                                                                                          tags$li(tags$strong(tags$span(style="color:#ff6600","Grade D "),"Insufficient data"),"Species is not assigned discordantly, but it has less than 3 specimens available in the reference library "),tags$br(),
                                                                                                                                          tags$li(tags$strong(tags$span(style="color:#cc0000","Grade E "),"Discordant species assignment"),"Species assigned to a BIN that is
 assigned to more than one different species. The specimen may match with a different
-species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="display:inline-block",tags$img(src='https://www.picturepaste.ca/images/2020/04/07/scheme_grades3a2aece1f92bb98a.png', width = "808px", height ="499px")),tags$br(),
+species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="display:inline-block",tags$img(src='https://i.ibb.co/WpxmPd4/scheme-grades3a2aece1f92bb98a.png', width = "808px", height ="499px")),tags$br(),
                                                                    tags$br(),tags$br(),tags$p(tags$strong(("The grades were adapted from the following studies:"))),
                                                                    tags$div(style="text-align:justify",tags$ul(tags$li("Costa, Filipe O., Landi, M., Martins, R., Costa, M. H., Costa, M. E., Carneiro, M., . Carvalho, G. R. (2012). A ranking system for 
                           reference libraries of DNA barcodes: application to marine fish species from Portugal. PloS One, 7(4), 1-9. doi: 10.1371/journal.pone.0035858"),
