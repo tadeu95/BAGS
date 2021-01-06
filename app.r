@@ -619,8 +619,8 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                    direction = "top"
                  ),
                  
-                 fluidRow(column(6,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
-                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://i.ibb.co/RccHm87/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(2,div(style="display:inline-block",tags$a(href="https://www.ntnu.edu/",tags$img(src='https://i.ibb.co/W0DMn9B/Logo-Ntnu-svg.png', width = "70px", height ="70px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://i.ibb.co/1nnPWrX/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
+                 fluidRow(column(5,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
+                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://i.ibb.co/RccHm87/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(2,div(style="display:inline-block",tags$a(href="https://www.ntnu.edu/",tags$img(src='https://i.ibb.co/W0DMn9B/Logo-Ntnu-svg.png', width = "70px", height ="70px"),target="_blank"))),column(3,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://i.ibb.co/1nnPWrX/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
                  tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),tags$br(),fluidRow(
                    column(7,
                           tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
