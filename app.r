@@ -619,8 +619,8 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                    direction = "top"
                  ),
                  
-                 fluidRow(column(8,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
-                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://i.ibb.co/RccHm87/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://i.ibb.co/1nnPWrX/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
+                 fluidRow(column(6,align="left",tags$span(style="color:#803300",(tags$h1(tags$em(tags$strong("BAGS: Barcode, Audit & Grade System")))))),
+                          column(2,div(style="display:inline-block",tags$a(href="https://www.uminho.pt/PT",tags$img(src='https://i.ibb.co/RccHm87/uminhoooo.png', width = "141px", height ="64px"),target="_blank"))),column(2,div(style="display:inline-block",tags$a(href="https://www.ntnu.edu/",tags$img(src='https://i.ibb.co/W0DMn9B/Logo-Ntnu-svg.png', width = "70px", height ="70px"),target="_blank"))),column(1,div(style="display:inline-block",tags$a(href="https://cbma.uminho.pt/",tags$img(src='https://i.ibb.co/1nnPWrX/Imagem2.png', width = "197px", height ="70"),target="_blank")))),tags$br(),
                  tabsetPanel(tabPanel(tags$span(style="color:#19194d",tags$h5(tags$b("OVERVIEW"))),tags$br(),fluidRow(
                    column(7,
                           tags$div(style="text-align:justify",column(12,align="center",tags$h3(tags$strong(tags$u("OVERVIEW")))),
@@ -803,8 +803,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                  #CONTACTS/RESOURCES
                  tabPanel(title="CONTACT AND RESOURCES", fluidRow(column(12,align="center",
                                                                          tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, Torbjørn Ekrem, Pedro Soares, Filipe O Costa"),
-                                                                         tags$h4(tags$strong("BAGS: an automated Barcode, Audit & Grade System for DNA barcode reference libraries.")),
-                                                                         tags$h4(tags$a(href="https://www.authorea.com/users/317355/articles/457103-bags-an-automated-barcode-audit-grade-system-for-dna-barcode-reference-libraries?commit=ab46b470bd860bf25840f93eb5c51a4d02e32c70","DOI: 10.22541/au.159135669.99561145",target="_blank")),tags$br(),
+                                                                         tags$h4(tags$a(href="https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13262","BAGS: An automated Barcode, Audit & Grade System for DNA barcode reference libraries",target="_blank")),tags$br(),
                                                                          tags$h3(tags$strong("Useful links:")),
                                                                          tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank")),
                                                                          tags$h4(tags$a(href="http://marinespecies.org/", "WoRMS", target="_blank")),
