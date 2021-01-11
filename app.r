@@ -63,7 +63,7 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
-  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
   for (p in patterns_non){
     taxon3$species_name<-gsub(p,"",taxon3$species_name)
   }
@@ -166,7 +166,7 @@ grades2<-function(groups,inputz,coordz){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
-  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
   for (p in patterns_non){
     taxon3$species_name<-gsub(p,"",taxon3$species_name)
   }
@@ -269,7 +269,7 @@ grades<-function(groups,inputz,coordz){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
-  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
   for (p in patterns_non){
     taxon3$species_name<-gsub(p,"",taxon3$species_name)
   }
@@ -382,7 +382,7 @@ grades_nonmarine<-function(groups,inputz,coordz){
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
-  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$"," [A-Z,a-z][A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
+  patterns_non<-c("[0-9]+.+","[a-z,A-Z]+[0-9]+.+","^[A-Z,a-z] "," [A-Z,a-z]$","[0-9]+.*","[a-z,A-Z]+[0-9]+.*","[0-9]+"," +$"," cmplx$"," [A-Z]+.+$"," cmplx$")
   for (p in patterns_non){
     taxon3$species_name<-gsub(p,"",taxon3$species_name)
   }
