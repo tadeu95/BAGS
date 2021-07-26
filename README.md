@@ -1,9 +1,7 @@
 # *BAGS: Barcode, Audit & Grade System*
 
 
-```diff
-###- ddddd
-```
+### The two files ("species_per_bin.txt" and "bin_per_species.txt") that BAGS requires for the grade assignment are currently out of date due to a significant decrease in BOLD API's download speed. Therefore, during auditing the libraries may include some grades annotated incorrectly or with "NA" We are working to solve this issue as quickly as possible, thank you in advance for your patience.
 
 ### Available links for direct access to BAGS:
 
