@@ -47,7 +47,10 @@ grades_checklist<-function(checklist,inputz,coordz){
   while (i < y){
     ini<-1+(300*(i-1))
     fin<-300*i
-    taxa<-bold_seqspec(taxon=species[ini:fin], format = "tsv")
+    tmp <- bold_seqspec(taxon=species[ini:fin], response = TRUE)
+    tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
+    Encoding(tt) <- "UTF-8"
+    taxa <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
     taxon_total <- rbind(taxon_total,taxa)
     i = i+1
   }
@@ -55,7 +58,7 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
-  taxon2$bin_uri.y=NULL
+  #taxon2$bin_uri.y=NULL
   names(taxon2)[names(taxon2) == "bin_uri.x"] <- "bin_uri"
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
@@ -154,7 +157,10 @@ grades_checklist<-function(checklist,inputz,coordz){
 }
 #####IMPLEMENT RANKING SYSTEM FOR ALL TAXA
 grades2<-function(groups,inputz,coordz){
-  taxon<-bold_seqspec(taxon=groups, format = "tsv")
+  tmp <- bold_seqspec(taxon=groups, response = TRUE)
+  tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
+  Encoding(tt) <- "UTF-8"
+  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
@@ -257,7 +263,10 @@ grades2<-function(groups,inputz,coordz){
 }
 ####IMPLEMENT RANKING SYSTEM MARINE TAXA
 grades<-function(groups,inputz,coordz){
-  taxon<-bold_seqspec(taxon=groups, format = "tsv")
+  tmp <- bold_seqspec(taxon=groups, response = TRUE)
+  tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
+  Encoding(tt) <- "UTF-8"
+  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
@@ -370,7 +379,10 @@ grades<-function(groups,inputz,coordz){
 }
 ####IMPLEMENT RANKING SYSTEM NONMARINE TAXA
 grades_nonmarine<-function(groups,inputz,coordz){
-  taxon<-bold_seqspec(taxon=groups, format = "tsv")
+  tmp <- bold_seqspec(taxon=groups, response = TRUE)
+  tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
+  Encoding(tt) <- "UTF-8"
+  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
@@ -651,9 +663,9 @@ ui <- navbarPage(title=tags$em(tags$b("BAGS: Barcode, Audit & Grade System v1.0.
                                                        tags$li("Downloading the data set in tsv file format, consisting of specimen data and its respective COI-5P sequence belonging to the chosen taxa, from the",
                                                                tags$a(href="http://boldsystems.org/index.php/resources/api", "BOLD Public Data Portal.", target="_blank")),tags$br(),
                                                        tags$li("Filtering", tags$strong("out"), "the following from the data set:",tags$br(),tags$br(),tags$ul(tags$li("Specimens with sequences of length below the threshold chosen by the user"), tags$br(),
-                                                                                                                                                               tags$li("Specimens without data on species name, BIN, lattitude or country of origin (in case the option is chosen)"),tags$br(),
+                                                                                                                                                               tags$li("Specimens without data on species name, BIN, lattitude or country of origin"),tags$br(),
                                                                                                                                                                tags$li("Ambiguous characters occasionally present in the species name and COI-5P sequences"),tags$br(),
-                                                                                                                                                               tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most common ambiguous character"))),tags$br(), 
+                                                                                                                                                               tags$li("Specimens with sequences consisting of > 1% Ns, which are usually the most commonambiguous character"))),tags$br(), 
                                                        tags$li("In the case of the marine or non-marine taxa options, the data set is filtered once again, retaining or excluding only the species known to be from marine or brackish habitats, using their species name as reference.
                            This is achieved using the", tags$a(href="http://www.marinespecies.org/","WoRMS database,",target="_blank"),"therefore, the download and annotation will take longer."), tags$br(),
                                                        tags$li("Lastly, according to the quality and availability of the data of each specimen, qualitative grades from A-E are assigned to each species present in the data set.
@@ -802,7 +814,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                  
                  #CONTACTS/RESOURCES
                  tabPanel(title="CONTACT AND RESOURCES", fluidRow(column(12,align="center",
-                                                                         tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, Torbjørn Ekrem, Pedro Soares, Filipe O Costa"),
+                                                                         tags$h3(tags$strong("Citing:")),tags$h4("JoÃ£o Tadeu Fontes, Pedro Vieira, TorbjÃ¸rn Ekrem, Pedro Soares, Filipe O Costa"),
                                                                          tags$h4(tags$a(href="https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13262","BAGS: An automated Barcode, Audit & Grade System for DNA barcode reference libraries",target="_blank")),tags$br(),
                                                                          tags$h3(tags$strong("Useful links:")),
                                                                          tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank")),
