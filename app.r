@@ -8,7 +8,7 @@ options(shiny.maxRequestSize = 50*1024^2)
 ##### INSTALL NECESSARY PACKAGES
 #install.packages(c("bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 
-##### Install package seqRFLP separately from archive, since it was removed from CRAN
+##### Install package seqRFLP separately from CRAN archive
 #url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 #pkgFile <- "seqRFLP_1.0.1.tar.gz"
 #download.file(url = url, destfile = pkgFile)
