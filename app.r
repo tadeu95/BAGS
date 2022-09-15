@@ -17,7 +17,7 @@ options(shiny.maxRequestSize = 50*1024^2)
 #runGitHub("BAGS", "tadeu95")
 
 ##### LOAD NECESSARY PACKAGES 
-library(seqRFLP)
+#library(seqRFLP)
 library(bold)
 library(data.table)
 library(worms)
