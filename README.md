@@ -20,18 +20,18 @@
 ```
 install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
-3.5. To install the package "seqRFLP", run these additional lines of code:
+4. To install the package "seqRFLP", run these additional lines of code:
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 pkgFile <- "seqRFLP_1.0.1.tar.gz"
 download.file(url = url, destfile = pkgFile)
 install.packages(pkgs=pkgFile, type="source", repos=NULL)
 ```
-4. Load the "shiny" package by running:
+5. Load the "shiny" package by running:
 ```
 library(shiny)
 ```
-5. Run the app from GitHub:
+6. Run the app from GitHub:
 ```
 runGitHub("BAGS", "tadeu95")
 ```
