@@ -18,9 +18,9 @@
 
 3. Open RGui or Rstudio and run this line of code to install the necessary packages:
 ```
-install.packages(c("bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
+install.packages(c("seqRFLP","bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
-3.5 To install the package "seqRFLP", you have to run these additional lines of code:
+3.5. To install the package "seqRFLP", run these additional lines of code:
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 pkgFile <- "seqRFLP_1.0.1.tar.gz"
