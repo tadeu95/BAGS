@@ -3,7 +3,7 @@ check.packages <- function(pkg){
   if (length(new.pkg)) 
     install.packages(new.pkg, dependencies = TRUE)
 }
-packages<-c("bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase")
+packages<-c("bold","data.table","worms","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase","httr","plyr")
 check.packages(packages)
 if (!"seqRFLP" %in% installed.packages()[, "Package"]) {
   url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
