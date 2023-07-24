@@ -11,6 +11,11 @@ if (!"seqRFLP" %in% installed.packages()[, "Package"]) {
   download.file(url = url, destfile = pkgFile)
   install.packages(pkgs=pkgFile, type="source", repos=NULL)
   }
-  
+if (!"worms" %in% installed.packages()[, "Package"]) {
+  url <- "http://cran.r-project.org/src/contrib/Archive/worms/worms_0.2.2.tar.gz"
+  pkgFile <- "worms_0.2.2.tar.gz"
+  download.file(url = url, destfile = pkgFile)
+  install.packages(pkgs=pkgFile, type="source", repos=NULL)
+  }
 library(shiny)
 runGitHub("BAGS", "tadeu95")
