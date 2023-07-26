@@ -1,12 +1,13 @@
 # *BAGS: Barcode, Audit & Grade System*
 
 ### Available links for direct access to BAGS:
-
 1. [Link1](https://tadeu-apps.shinyapps.io/bags)
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
 3. [Link3](https://tadeu-apps.shinyapps.io/bags3)
 4. [Link4](https://tadeu-apps.shinyapps.io/bags4)
 5. [Link5](https://tadeu-apps.shinyapps.io/bags5)
+
+### NOTE: the web links have limited capacity for the retrieval or large taxonomic groups, and they are limited to one user at a time. To run BAGS without limitations, host the application locally in your R environment
 
 ## **How to host BAGS locally in your R environment**
 
@@ -20,14 +21,14 @@
 ```
 install.packages(c("seqRFLP","bold","data.table","plyr","httr","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
-4. To install the package "seqRFLP", run these additional lines of code:
+4. The packages "seqRFLP" and "worms" have been removed from the CRAN repository. To install the package "seqRFLP" from the CRAN archive, run these lines of code:
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 pkgFile <- "seqRFLP_1.0.1.tar.gz"
 download.file(url = url, destfile = pkgFile)
 install.packages(pkgs=pkgFile, type="source", repos=NULL)
 ```
-5. To install the package "worms", run these additional lines of code:
+5. To install the package "worms" from the CRAN archive, run these  lines of code:
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/worms/worms_0.2.2.tar.gz"
 pkgFile <- "worms_0.2.2.tar.gz"
