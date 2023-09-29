@@ -75,6 +75,12 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+  group_by(species_name) %>%
+  dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -293,6 +299,12 @@ grades<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+  group_by(species_name) %>%
+  dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
@@ -409,6 +421,12 @@ grades_nonmarine<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+  group_by(species_name) %>%
+  dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
