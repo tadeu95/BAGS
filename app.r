@@ -171,7 +171,7 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon19$bin_per_species=NULL
   taxon19$frequency_species=NULL
   taxon19 <- taxon19 %>%
-  mutate(grade = ifelse(is.na(grade), "needs_update", grade))
+    mutate(grade = ifelse(is.na(grade), "needs_update", grade))
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
@@ -285,7 +285,7 @@ grades2<-function(groups,inputz,coordz){
   taxon19$bin_per_species=NULL
   taxon19$frequency_species=NULL
   taxon19 <- taxon19 %>%
-  mutate(grade = ifelse(is.na(grade), "needs_update", grade))
+    mutate(grade = ifelse(is.na(grade), "needs_update", grade))
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
@@ -409,7 +409,7 @@ grades<-function(groups,inputz,coordz){
   taxon19$frequency_species=NULL
   taxon19$frequency_species=NULL
   taxon19 <- taxon19 %>%
-  mutate(grade = ifelse(is.na(grade), "needs_update", grade))
+    mutate(grade = ifelse(is.na(grade), "needs_update", grade))
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
@@ -533,7 +533,7 @@ grades_nonmarine<-function(groups,inputz,coordz){
   taxon19$bin_per_species=NULL
   taxon19$frequency_species=NULL
   taxon19 <- taxon19 %>%
-  mutate(grade = ifelse(is.na(grade), "needs_update", grade))
+    mutate(grade = ifelse(is.na(grade), "needs_update", grade))
   taxon19<-taxon19[order(taxon19$species),]
   assign('taxon19',taxon19,envir=.GlobalEnv)
 }
