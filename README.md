@@ -1,5 +1,6 @@
 # *BAGS: Barcode, Audit & Grade System*
 
+### WARNING: the information needed for grade assignment has not been updated for the weblinks since July 2023. This is due to a recent update to the R package necessary to deploy the application, and we hope to have is resolved in the near future.
 ### Available links for direct access to BAGS:
 1. [Link1](https://tadeu-apps.shinyapps.io/bags)
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
