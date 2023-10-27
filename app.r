@@ -75,12 +75,6 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  max_values <- taxon2 %>%
-  group_by(species_name) %>%
-  dplyr::summarize(max_species_per_bin = max(species_per_bin))
-  taxon2 <- left_join(taxon2, max_values, by = "species_name")
-  taxon2$species_per_bin<-taxon2$max_species_per_bin
-  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -164,6 +158,12 @@ grades_checklist<-function(checklist,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
+    problematic_otus <- taxon19 %>%
+    group_by(species) %>%
+    filter(species_per_bin > 1) %>%
+    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
+    ungroup()
+  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -189,12 +189,6 @@ grades2<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  max_values <- taxon2 %>%
-  group_by(species_name) %>%
-  dplyr::summarize(max_species_per_bin = max(species_per_bin))
-  taxon2 <- left_join(taxon2, max_values, by = "species_name")
-  taxon2$species_per_bin<-taxon2$max_species_per_bin
-  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -278,6 +272,12 @@ grades2<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
+    problematic_otus <- taxon19 %>%
+    group_by(species) %>%
+    filter(species_per_bin > 1) %>%
+    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
+    ungroup()
+  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -303,12 +303,6 @@ grades<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  max_values <- taxon2 %>%
-  group_by(species_name) %>%
-  dplyr::summarize(max_species_per_bin = max(species_per_bin))
-  taxon2 <- left_join(taxon2, max_values, by = "species_name")
-  taxon2$species_per_bin<-taxon2$max_species_per_bin
-  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
@@ -401,6 +395,12 @@ grades<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
+    problematic_otus <- taxon19 %>%
+    group_by(species) %>%
+    filter(species_per_bin > 1) %>%
+    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
+    ungroup()
+  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -427,12 +427,6 @@ grades_nonmarine<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
-  max_values <- taxon2 %>%
-  group_by(species_name) %>%
-  dplyr::summarize(max_species_per_bin = max(species_per_bin))
-  taxon2 <- left_join(taxon2, max_values, by = "species_name")
-  taxon2$species_per_bin<-taxon2$max_species_per_bin
-  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -526,6 +520,12 @@ grades_nonmarine<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
+    problematic_otus <- taxon19 %>%
+    group_by(species) %>%
+    filter(species_per_bin > 1) %>%
+    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
+    ungroup()
+  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
