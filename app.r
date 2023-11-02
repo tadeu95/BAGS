@@ -75,6 +75,12 @@ grades_checklist<-function(checklist,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+    group_by(species_name) %>%
+    dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -158,12 +164,6 @@ grades_checklist<-function(checklist,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-    problematic_otus <- taxon19 %>%
-    group_by(species) %>%
-    filter(species_per_bin > 1) %>%
-    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
-    ungroup()
-  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -189,6 +189,12 @@ grades2<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+    group_by(species_name) %>%
+    dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -272,12 +278,6 @@ grades2<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-    problematic_otus <- taxon19 %>%
-    group_by(species) %>%
-    filter(species_per_bin > 1) %>%
-    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
-    ungroup()
-  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -303,6 +303,12 @@ grades<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+    group_by(species_name) %>%
+    dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides,fixed=TRUE)
@@ -395,12 +401,6 @@ grades<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-    problematic_otus <- taxon19 %>%
-    group_by(species) %>%
-    filter(species_per_bin > 1) %>%
-    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
-    ungroup()
-  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -427,6 +427,12 @@ grades_nonmarine<-function(groups,inputz,coordz){
   taxon2<-left_join(taxon2,spb,by="bin_uri")
   taxon2$species_name.y=NULL
   names(taxon2)[names(taxon2) == "species_name.x"] <- "species_name"
+  max_values <- taxon2 %>%
+    group_by(species_name) %>%
+    dplyr::summarize(max_species_per_bin = max(species_per_bin))
+  taxon2 <- left_join(taxon2, max_values, by = "species_name")
+  taxon2$species_per_bin<-taxon2$max_species_per_bin
+  taxon2$max_species_per_bin<-NULL
   taxon3<-taxon2[taxon2$markercode=="COI-5P",]
   taxon3$nucleotides=gsub("[^ATGCNRYSWKMBDHV]+", "", taxon3$nucleotides)
   taxon3$nucleotides=gsub("-","",taxon3$nucleotides)
@@ -520,12 +526,6 @@ grades_nonmarine<-function(groups,inputz,coordz){
   dt[contains_dominant == TRUE, grade := dominant_grade]
   taxon19 <- setDF(dt)
   taxon19$contains_dominant=NULL
-    problematic_otus <- taxon19 %>%
-    group_by(species) %>%
-    filter(species_per_bin > 1) %>%
-    dplyr::summarise(problematic_OTUs = paste(unique(BIN), collapse = ",")) %>%
-    ungroup()
-  taxon19 <- left_join(taxon19, problematic_otus, by = "species")
   taxon19$BIN_per_species=NULL
   taxon19$species_per_bin=NULL
   taxon19$species_frequency=NULL
@@ -751,13 +751,13 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                                                                                                                                                     #MARINE  
                                                                                                                                                     tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Marine Taxa Only"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for marine species"))))),tags$br(),
                                                                                                                                                                                                                                                    textInputIcon(inputId="taxa",icon=icon("search"),width="500px",
-                                                                                                                                                                                                                                                                  label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option selects only species that are considered as marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+                                                                                                                                                                                                                                                                 label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Cetacea,Hippocampus,Octopoda"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option selects only species that are considered as marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
                                                                                                                                                                                                                                                    downloadButton("downloadData","Download"))),
                                                                                                                                                     
                                                                                                                                                     #NON-MARINE  
                                                                                                                                                     tabPanel(tags$span(style="color:#262626",tags$h5(tags$b("Excluding Marine Taxa"))),tags$br(),column(12,align="center",tags$span(style="color:#000000", tags$h3(align="center",tags$em(tags$strong(tags$u("Download, audit and annotate library for non-marine species"))))),tags$br(),
                                                                                                                                                                                                                                                         textInputIcon(inputId="taxa_non",icon=icon("search"),width="500px",
-                                                                                                                                                                                                                                                                       label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option excludes all species which are assigned exclusively to marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
+                                                                                                                                                                                                                                                                      label=tags$h5(tags$strong("Enter the name of the taxonomic group or groups separated by commas, without spaces:")),placeholder="Example: Palaemonidae,Salmoniformes"),tags$span(style="color:#b94646",tags$h6(tags$b("NOTE: This option excludes all species which are assigned exclusively to marine and/or brackish at",tags$a(href="http://www.marinespecies.org/","WoRMS.",target="_blank")))),
                                                                                                                                                                                                                                                         downloadButton("downloadData_non","Download"))))),
                                       #CHECKLIST
                                       tabPanel(tags$span(style="color:#19194d",tags$h4(tags$b("UPLOAD SPECIES LIST"))),
@@ -858,7 +858,7 @@ species or display paraphyly or polyphyly"),tags$br(),tags$br()))),div(style="di
                  
                  #CONTACTS/RESOURCES
                  tabPanel(title="CONTACT AND RESOURCES", fluidRow(column(12,align="center",
-                                                                         tags$h3(tags$strong("Citing:")),tags$h4("JoÃ£o Tadeu Fontes, Pedro Vieira, TorbjÃ¸rn Ekrem, Pedro Soares, Filipe O Costa"),
+                                                                         tags$h3(tags$strong("Citing:")),tags$h4("João Tadeu Fontes, Pedro Vieira, Torbjørn Ekrem, Pedro Soares, Filipe O Costa"),
                                                                          tags$h4(tags$a(href="https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13262","BAGS: An automated Barcode, Audit & Grade System for DNA barcode reference libraries",target="_blank")),tags$br(),
                                                                          tags$h3(tags$strong("Useful links:")),
                                                                          tags$h4(tags$a(href="http://www.boldsystems.org/", "BOLD", target="_blank")),
