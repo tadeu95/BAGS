@@ -5,7 +5,7 @@
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
 3. [Link3](https://tadeu-apps.shinyapps.io/bags3)
 4. [Link4](https://tadeu-apps.shinyapps.io/bags4)
-5. [Link5](https://tadeu-apps.shinyapps.io/bags5)
+5. [Link5 (new column with problematic BINs for grade E species in testing)](https://tadeu-apps.shinyapps.io/bags5)
 
 ### NOTE: the web links have limited capacity for the retrieval or large taxonomic groups, and they are limited to one user at a time. To run BAGS without limitations, host the application locally in your R environment
 
