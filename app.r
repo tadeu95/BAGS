@@ -54,11 +54,11 @@ grades_checklist<-function(checklist,inputz,coordz){
   species<-unique(checklist[,1])
   x<-length(species)
   taxon_total = data.frame()
-  y=x%/%300+2
+  y <- ceiling(x / 300) + 1
   i <- 1
   while (i < y){
     ini<-1+(300*(i-1))
-    fin<-300*i
+    fin <- min(300 * i, x)
     tmp <- bold_seqspec(taxon=species[ini:fin], response = TRUE)
     tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
     Encoding(tt) <- "UTF-8"
