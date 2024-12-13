@@ -1,5 +1,9 @@
 # *BAGS: Barcode, Audit & Grade System*
 
+<h1 style="color:red;">⚠️ Notice: Use BAGS with Caution ⚠️</h1>
+
+<p>The BAGS output may be incomplete or less reliable due to the removal of the <code>bold</code> R package from CRAN. While the <code>bold</code> package is still available in archive, the removal from CRAN may affect its accessibility and reliability in some environments. Please be cautious when interpreting results and aware of potential limitations or innacuracies.</p>
+
 ### Available links for direct access to BAGS:
 1. [Link1](https://tadeu-apps.shinyapps.io/bags)
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
