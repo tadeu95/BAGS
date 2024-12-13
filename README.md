@@ -4,6 +4,20 @@
 
 <p>The BAGS output may be incomplete or less reliable due to the removal of the <code>bold</code> R package from CRAN. While the <code>bold</code> package is still available in archive, the removal from CRAN may affect its accessibility and reliability in some environments. Please be cautious when interpreting results and aware of potential limitations or innacuracies.</p>
 
+
+<div style="border: 2px solid red; padding: 15px; background-color: #ffe6e6; font-size: 18px;">
+  <h1 style="color:red; text-align:center;">⚠️ Important Notice ⚠️</h1>
+  <p>
+    The BAGS output may be incomplete or less reliable due to the removal of the <code>bold</code> R package from CRAN. 
+    While the <code>bold</code> package is still available in archive, the removal from CRAN may affect its accessibility 
+    and reliability in some environments.
+  </p>
+  <p>
+    <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
+  </p>
+</div>
+
+
 ### Available links for direct access to BAGS:
 1. [Link1](https://tadeu-apps.shinyapps.io/bags)
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
