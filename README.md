@@ -40,7 +40,7 @@ install.packages(c("seqRFLP","bold","data.table","plyr","httr","stringr","readr"
 
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/bold/bold_1.3.0.tar.gz"
-pkgFile <- "seqRFLP_1.0.1.tar.gz"
+pkgFile <- "bold_1.3.0.tar.gz"
 download.file(url = url, destfile = pkgFile)
 install.packages(pkgs=pkgFile, type="source", repos=NULL)
 ```
