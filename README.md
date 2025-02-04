@@ -36,25 +36,34 @@
 ```
 install.packages(c("seqRFLP","bold","data.table","plyr","httr","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
-4. The packages "seqRFLP" and "worms" have been removed from the CRAN repository. To install the package "seqRFLP" from the CRAN archive, run these lines of code:
+4. The packages "bold", "seqRFLP", and "worms" have been removed from the CRAN repository. To install the package "bold" from the CRAN archive, run these lines of code:
+
+```
+url <- "http://cran.r-project.org/src/contrib/Archive/bold/bold_1.3.0.tar.gz"
+pkgFile <- "seqRFLP_1.0.1.tar.gz"
+download.file(url = url, destfile = pkgFile)
+install.packages(pkgs=pkgFile, type="source", repos=NULL)
+```
+5. To install the package "seqRFLP" from the CRAN archive, run these lines of code:
+
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 pkgFile <- "seqRFLP_1.0.1.tar.gz"
 download.file(url = url, destfile = pkgFile)
 install.packages(pkgs=pkgFile, type="source", repos=NULL)
 ```
-5. To install the package "worms" from the CRAN archive, run these  lines of code:
+6. To install the package "worms" from the CRAN archive, run these  lines of code:
 ```
 url <- "http://cran.r-project.org/src/contrib/Archive/worms/worms_0.2.2.tar.gz"
 pkgFile <- "worms_0.2.2.tar.gz"
 download.file(url = url, destfile = pkgFile)
 install.packages(pkgs=pkgFile, type="source", repos=NULL)
 ```
-6. Load the "shiny" package by running:
+7. Load the "shiny" package by running:
 ```
 library(shiny)
 ```
-7. Run the app from GitHub:
+8. Run the app from GitHub:
 ```
 runGitHub("BAGS", "tadeu95")
 ```
