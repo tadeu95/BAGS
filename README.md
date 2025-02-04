@@ -76,7 +76,11 @@ runGitHub("BAGS", "tadeu95")
 
 3. Open RGui or Rstudio and install the necessary packages:
 ```
-install.packages(c("bold","data.table","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
+install.packages(c("data.table","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
+url <- "http://cran.r-project.org/src/contrib/Archive/bold/bold_1.3.0.tar.gz"
+pkgFile <- "bold_1.3.0.tar.gz"
+download.file(url = url, destfile = pkgFile)
+install.packages(pkgs=pkgFile, type="source", repos=NULL)
 url <- "http://cran.r-project.org/src/contrib/Archive/seqRFLP/seqRFLP_1.0.1.tar.gz"
 pkgFile <- "seqRFLP_1.0.1.tar.gz"
 download.file(url = url, destfile = pkgFile)
