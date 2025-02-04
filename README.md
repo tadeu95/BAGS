@@ -34,7 +34,7 @@
 
 3. Open RGui or Rstudio and run this line of code to install the necessary packages:
 ```
-install.packages(c("seqRFLP","bold","data.table","plyr","httr","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
+install.packages(c("data.table","plyr","httr","stringr","readr","fingerprint","dplyr","ggplot2","shiny","shinyWidgets","snakecase"))
 ```
 4. The packages "bold", "seqRFLP", and "worms" have been removed from the CRAN repository. To install the package "bold" from the CRAN archive, run these lines of code:
 
