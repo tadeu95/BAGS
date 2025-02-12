@@ -4,8 +4,7 @@
   <h1 style="color:red; text-align:center;">⚠️ Important Notice ⚠️</h1>
   <p>
     The BAGS output may be incomplete or less reliable due to the removal of the <code>bold</code> R package from the CRAN repository. 
-    While earlier versions of the <code>bold</code> package are still available in archive, the removal from CRAN may affect its accessibility 
-    and reliability.
+    While earlier versions of the <code>bold</code> package are still available in archive, the removal from CRAN may affect its accessibility.
   </p>
   <p>
     <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
