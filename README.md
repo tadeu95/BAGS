@@ -3,8 +3,7 @@
 <div style="border: 2px solid red; padding: 15px; background-color: #ffe6e6; font-size: 18px;">
   <h1 style="color:red; text-align:center;">⚠️ Important Notice ⚠️</h1>
   <p>
-    The BAGS output may be incomplete or less reliable due to the removal of the <code>bold</code> R package from the CRAN repository. 
-    While earlier versions of the <code>bold</code> package are still available in archive, the removal from CRAN may affect its accessibility.
+The BAGS output may be affected due to the removal of the <code>bold</code> R package from the CRAN repository. While earlier versions of the <code>bold</code> package remain available in the archive, the removal from CRAN may impact its accessibility and usability. Additionally, BAGS was designed to use the BOLD version 4 API, and with the ongoing transition to BOLD version 5, its current functionality and compatibility remain uncertain.
   </p>
   <p>
     <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
