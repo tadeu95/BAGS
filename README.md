@@ -37,6 +37,8 @@ install.packages(c("data.table","plyr","httr","stringr","readr","fingerprint","d
 4. The packages "bold", "seqRFLP", and "worms" have been removed from the CRAN repository. To install the package "bold" from the CRAN archive, run these lines of code:
 
 ```
+install.packages("crul")
+library(crul)
 url <- "http://cran.r-project.org/src/contrib/Archive/bold/bold_1.3.0.tar.gz"
 pkgFile <- "bold_1.3.0.tar.gz"
 download.file(url = url, destfile = pkgFile)
