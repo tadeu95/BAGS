@@ -3,7 +3,13 @@
 <div style="border: 2px solid red; padding: 15px; background-color: #ffe6e6; font-size: 18px;">
   <h1 style="color:red; text-align:center;">⚠️ Important Notice ⚠️</h1>
   <p>
-The BAGS output may be affected due to the removal of the <code>bold</code> R package from the CRAN repository. While earlier versions of the <code>bold</code> package remain available in the archive, the removal from CRAN may impact its accessibility and usability. BAGS was designed to use the BOLD version 4 API, and with the ongoing transition to BOLD version 5, its current functionality and compatibility remain uncertain. Additionally, the reference files used for grade assignments are currently static and cannot be updated. As a result, some grade assignments may include minor inaccuracies or outdated information. We are actively working on a solution to restore full functionality.
+The BAGS output may be affected by the removal of the bold R package from the CRAN repository. While earlier versions are still available through the CRAN archive, the removal may impact accessibility and usability moving forward. BAGS was developed to work with the BOLD Systems API v4, and with the ongoing transition to API v5, its compatibility with future updates remains uncertain.
+
+BAGS continues to download current data from BOLD via the v4 API, including newly added records. However, grade assignment relies on static reference files that cannot be updated at this time. These files—last updated in July 2024—store the BIN-to-species mapping used to calculate the number of BINs per species name and the number of species names per BIN. As a result, any BIN reassignments or changes in species-BIN relationships after that date are not accounted for in the grading process.
+
+When a species is assigned the grade "needs_update", it means BAGS detected at least one BIN that was not included in the current static reference files on GitHub. In such cases, while the sequence data are retrieved and included, the grading is based only on the outdated BIN-to-species mapping. Consequently, some grade assignments may show discrepancies when compared to the current BIN structure on BOLD.
+
+We are actively working on a solution to restore full functionality and enable regular updates.
   </p>
   <p>
     <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
