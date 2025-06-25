@@ -68,7 +68,7 @@ grades_checklist<-function(checklist,inputz,coordz){
     tmp <- bold_seqspec(taxon=species[ini:fin], response = TRUE)
     tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
     Encoding(tt) <- "UTF-8"
-    taxa <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
+    taxa <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "", row.names = NULL)
     taxon_total <- rbind(taxon_total,taxa)
     i = i+1
   }
@@ -300,7 +300,7 @@ grades<-function(groups,inputz,coordz){
   tmp <- bold_seqspec(taxon=groups, response = TRUE)
   tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
   Encoding(tt) <- "UTF-8"
-  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
+  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "", row.names = NULL)
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
@@ -424,7 +424,7 @@ grades_nonmarine<-function(groups,inputz,coordz){
   tmp <- bold_seqspec(taxon=groups, response = TRUE)
   tt <- paste0(rawToChar(tmp$content, multiple = TRUE), collapse = "")
   Encoding(tt) <- "UTF-8"
-  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
+  taxon <- utils::read.delim(text = tt, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "", row.names = NULL)
   taxon2<-taxon[taxon$species_name!=""|is.na(taxon$species_name),]
   taxon2<-taxon2[!(taxon2$bin_uri == "" | is.na(taxon2$bin_uri)), ]
   taxon2<-left_join(taxon2,bps,by="species_name")
