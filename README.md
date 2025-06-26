@@ -11,7 +11,9 @@ When a species is assigned the grade "needs_update", it means BAGS detected at l
 
 
 🧭**To address these limitations, we are currently testing an experimental version of BAGS available at:**  
-**[https://tadeu-apps.shinyapps.io/bags5/](https://tadeu-apps.shinyapps.io/bags5/)**  
+**[https://tadeu-apps.shinyapps.io/bags4/](https://tadeu-apps.shinyapps.io/bags4/)** 
+**AND**
+**[https://tadeu-apps.shinyapps.io/bags5/](https://tadeu-apps.shinyapps.io/bags5/)** 
 **This version may take longer to retrieve data, but grade assignment is done in real time, using up-to-date BIN-to-species information directly from the current BOLD API responses.**  
 **Therefore, the issues described above regarding outdated static files do not apply to this version.**  
 **If you try it out, we would greatly appreciate any feedback, bug reports, or suggestions to help improve it and eventually extend this version to the other available Shinyapps links, as well as the self-hosted (local) version.**
