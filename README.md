@@ -9,7 +9,8 @@ BAGS continues to download current data from BOLD via the v4 API, including newl
 
 When a species is assigned the grade "needs_update", it means BAGS detected at least one BIN that was not included in the current static reference files on GitHub. In such cases, while the sequence data are retrieved and included, the grading is based only on the outdated BIN-to-species mapping. Consequently, some grade assignments may show discrepancies when compared to the current BIN structure on BOLD.
 
-**To address these limitations, we are currently testing an experimental version of BAGS available at**  
+
+🧭**To address these limitations, we are currently testing an experimental version of BAGS available at:**  
 **[https://tadeu-apps.shinyapps.io/bags5/](https://tadeu-apps.shinyapps.io/bags5/)**  
 **This version may take longer to retrieve data, but grade assignment is done in real time, using up-to-date BIN-to-species information directly from the current BOLD API responses.**  
 **Therefore, the issues described above regarding outdated static files do not apply to this version.**  
