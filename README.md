@@ -9,7 +9,11 @@ BAGS continues to download current data from BOLD via the v4 API, including newl
 
 When a species is assigned the grade "needs_update", it means BAGS detected at least one BIN that was not included in the current static reference files on GitHub. In such cases, while the sequence data are retrieved and included, the grading is based only on the outdated BIN-to-species mapping. Consequently, some grade assignments may show discrepancies when compared to the current BIN structure on BOLD.
 
-We are actively working on a solution to restore full functionality and enable regular updates.
+**To address these limitations, we are currently testing an experimental version of BAGS available at**  
+**[https://tadeu-apps.shinyapps.io/bags5/](https://tadeu-apps.shinyapps.io/bags5/)**  
+**This version may take longer to retrieve data, but grade assignment is done in real time, using up-to-date BIN-to-species information directly from the current BOLD API responses.**  
+**Therefore, the issues described above regarding outdated static files do not apply to this version.**  
+**If you try it out, we would greatly appreciate any feedback, bug reports, or suggestions to help improve it and eventually extend this version to the other available Shinyapps links, as well as the self-hosted (local) version.**
   </p>
   <p>
     <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
@@ -24,7 +28,7 @@ We are actively working on a solution to restore full functionality and enable r
 2. [Link2](https://tadeu-apps.shinyapps.io/bags2)
 3. [Link3](https://tadeu-apps.shinyapps.io/bags3)
 4. [Link4](https://tadeu-apps.shinyapps.io/bags4)
-5. [Link5 (new column with problematic BINs for grade E species in testing)](https://tadeu-apps.shinyapps.io/bags5)
+5. [Link5](https://tadeu-apps.shinyapps.io/bags5)
 
 ### NOTE: the web links have limited capacity for the retrieval or large taxonomic groups, and they are limited to one user at a time. To run BAGS without limitations, host the application locally in your R environment
 
