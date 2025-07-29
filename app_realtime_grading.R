@@ -99,14 +99,14 @@ grades_checklist<-function(checklist,inputz,coordz){
   #BINs per species name
   bps<-taxon2.5%>% 
     group_by(species_name) %>%
-    summarise(occurrence = n_distinct(bin_uri),
+    dplyr::summarise(occurrence = n_distinct(bin_uri),
               bin_uri = str_c(unique(bin_uri), collapse = ","))
   bps$bin_uri=NULL
   names(bps)<-c("species_name","bin_per_species")
   #Species names per BIN
   spb<-taxon2.5%>% 
     group_by(bin_uri) %>%
-    summarise(occurrence = n_distinct(species_name),
+    dplyr::summarise(occurrence = n_distinct(species_name),
               species_name = str_c(unique(species_name), collapse = ","))
   spb$species_name=NULL
   names(spb)<-c("bin_uri","species_per_bin")
