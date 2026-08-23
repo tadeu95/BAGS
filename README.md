@@ -20,7 +20,7 @@
   </p>
 
   <p>
-    In the meantime, users interested in DNA barcode reference library assessment and curation may wish to explore the <strong>Biodiversity Genomics Europe (BGE) Reference Library Pipeline and Curation Tool</strong>. This is an independent tool developed by BGE that incorporates a species-level assessment based on the BAGS grading framework, together with additional quality-control criteria, phylogenetic analyses, and manual curation functionalities.
+    In the meantime, users interested in DNA barcode reference library assessment and curation may wish to explore the <strong>Biodiversity Genomics Europe (BGE) Reference Library Pipeline and Curation Tool</strong>. This tool was developed by partners of the Biodiversity Genomics Europe (BGE) project and incorporates a BAGS species-level assessment alongside additional quality-control criteria, phylogenetic analyses, and manual curation functionalities.
   </p>
 
   <p>
