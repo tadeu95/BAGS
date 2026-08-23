@@ -2,23 +2,34 @@
 
 <div style="border: 2px solid red; padding: 15px; background-color: #ffe6e6; font-size: 18px;">
   <h1 style="color:red; text-align:center;">⚠️ Important Notice ⚠️</h1>
+
   <p>
-The BAGS output may be affected by the removal of the bold R package from the CRAN repository. While earlier versions are still available through the CRAN archive, the removal may impact accessibility and usability moving forward. BAGS was developed to work with the BOLD Systems API v4, and with the ongoing transition to API v5, its compatibility with future updates remains uncertain. <strong>Please be cautious when interpreting results and aware of potential limitations or inaccuracies.</strong>
-
-BAGS continues to download current data from BOLD via the v4 API, including newly added records. However, grade assignment relies on static reference files that cannot be updated at this time. These files—last updated in July 2024—store the BIN-to-species mapping used to calculate the number of BINs per species name and the number of species names per BIN. As a result, any BIN reassignments or changes in species-BIN relationships after that date are not accounted for in the grading process.
-
-When a species is assigned the grade "needs_update", it means BAGS detected at least one BIN that was not included in the current static reference files on GitHub. In such cases, while the sequence data are retrieved and included, the grading is based only on the outdated BIN-to-species mapping. Consequently, some grade assignments may show discrepancies when compared to the current BIN structure on BOLD.
-
-
-🧭**To address these limitations, we are currently testing an experimental version of BAGS available at:**  
-**[https://tadeu-apps.shinyapps.io/bags4/](https://tadeu-apps.shinyapps.io/bags4/)** 
-**AND**
-**[https://tadeu-apps.shinyapps.io/bags5/](https://tadeu-apps.shinyapps.io/bags5/).** 
-**This version may take longer to retrieve data, but grade assignment is done in real time, using up-to-date BIN-to-species information directly from the current BOLD API responses.**  
-**Therefore, the issues described above regarding outdated static files do not apply to this version.**  
-**If you try it out, we would greatly appreciate any feedback, bug reports, or suggestions to help improve it and eventually extend this version to the other available Shinyapps links, as well as the self-hosted (local) version.**
+    <strong>BAGS is currently not operational.</strong>
   </p>
+
   <p>
+    BAGS was originally developed to retrieve barcode records from BOLD Systems using the BOLD v4 API and the R package <code>bold</code>. Following the transition of BOLD Systems to version 5 and its new API infrastructure, the v4 services on which BAGS relies no longer provide the data access required by the application. Consequently, BAGS is currently unable to retrieve the BOLD records needed to perform its analyses and grade assignments.
+  </p>
+
+  <p>
+    In addition, the R package <code>bold</code>, which BAGS uses for data retrieval, was removed from the CRAN repository in August 2024. Although archived versions of the package remain available, they were developed for the BOLD v4 API and therefore do not restore the current functionality of BAGS.
+  </p>
+
+  <p>
+    <strong>We are currently assessing the possibility of updating BAGS to work with the new BOLD v5 API.</strong> This would require adapting the data-retrieval workflow and parts of the application to the structure and endpoints of the new API.
+  </p>
+
+  <p>
+    In the meantime, users interested in DNA barcode reference library assessment and curation may wish to explore the <strong>Biodiversity Genomics Europe (BGE) Reference Library Pipeline and Curation Tool</strong>. This is an independent tool developed by BGE that incorporates a species-level assessment based on the BAGS grading framework, together with additional quality-control criteria, phylogenetic analyses, and manual curation functionalities.
+  </p>
+
+  <p>
+    🧭 <strong>More information about the BGE Reference Library Pipeline and Curation Tool is available here:</strong><br>
+    <strong><a href="https://iboleurope.org/bge-reference-library-pipeline-and-curation-tool/">https://iboleurope.org/bge-reference-library-pipeline-and-curation-tool/</a></strong>
+  </p>
+
+  <p>
+    We hope to provide further information regarding the future development of BAGS as the transition to the BOLD v5 infrastructure progresses.
   </p>
 </div>
 
