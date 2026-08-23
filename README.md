@@ -24,7 +24,7 @@
   </p>
 
   <p>
-    🧭 <strong>More information about the BGE Reference Library Pipeline and Curation Tool is available here:</strong><br>
+    <strong>More information about the BGE Reference Library Pipeline and Curation Tool is available here:</strong><br>
     <strong><a href="https://iboleurope.org/bge-reference-library-pipeline-and-curation-tool/">https://iboleurope.org/bge-reference-library-pipeline-and-curation-tool/</a></strong>
   </p>
 
