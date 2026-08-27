@@ -19,9 +19,6 @@
     <strong>We are currently exploring the feasibility of adapting BAGS to the BOLD v5 API.</strong> This would require updating the data-retrieval workflow and other parts of the application to accommodate the structure and endpoints of the new API. This page will be updated if a compatible version becomes available.
   </p>
 
-  <p>
-    In the meantime, users interested in DNA barcode reference library assessment and curation may wish to explore the <strong>Biodiversity Genomics Europe (BGE) Reference Library Pipeline and Curation Tool</strong>. Developed within the Biodiversity Genomics Europe project, this pipeline incorporates a <strong>BAGS species-level assessment</strong>, alongside additional quality-control criteria, phylogenetic analyses, and tools for the manual curation of DNA barcode reference libraries.
-  </p>
 
   <p>
     <strong>More information about the BGE Reference Library Pipeline and Curation Tool is available here:</strong><br>
