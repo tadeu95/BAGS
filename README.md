@@ -16,8 +16,11 @@
   </p>
 
   <p>
-    <strong>We are currently exploring the feasibility of adapting BAGS to the BOLD v5 API.</strong> This would require updating the data-retrieval workflow and other parts of the application to accommodate the structure and endpoints of the new API. This page will be updated if a compatible version becomes available.
+    Users interested in applying a similar barcode reference-library auditing approach using the current BOLD infrastructure may also explore <strong>BOLDcuratoR</strong>, a tool developed within the <strong>Biodiversity Genomics Europe (BGE)</strong> project that includes the BAGS A–E grade assignment. The tool and its source code are available at
+    <a href="https://github.com/bge-barcoding/BOLDcuratoR" target="_blank">https://github.com/bge-barcoding/BOLDcuratoR</a>.
   </p>
 
-
-  
+  <p>
+    <strong>We are currently exploring the feasibility of adapting BAGS to the BOLD v5 API.</strong> This would require updating the data-retrieval workflow and other parts of the application to accommodate the structure and endpoints of the new API. This page will be updated if a compatible version becomes available.
+  </p>
+</div>
