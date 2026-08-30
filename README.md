@@ -17,4 +17,4 @@
 
  <p> In light of this, we recommend <strong>BOLDcuratoR</strong>, a tool developed within the <strong>Biodiversity Genomics Europe (BGE)</strong> project for curating barcode data retrieved through the current BOLD infrastructure. Among its features, BOLDcuratoR includes the BAGS A–E grade assignment, alongside additional tools for assessing BIN concordance, ranking specimens, and supporting reference-library curation. </p>
 
-<p> The BOLDcuratoR web application is available at <a href="https://benprice.shinyapps.io/BOLDcuratoR/" target="_blank">https://benprice.shinyapps.io/BOLDcuratoR/</a>, and its source code is available on <a href="https://github.com/bge-barcoding/BOLDcuratoR" target="_blank">GitHub</a>. </p>
+<p> The BOLDcuratoR web application is available at <a href="https://shiny.nhm.ac.uk/boldcurator/" target="_blank">https://benprice.shinyapps.io/BOLDcuratoR/</a>, and its source code is available on <a href="https://github.com/bge-barcoding/BOLDcuratoR" target="_blank">GitHub</a>. </p>
