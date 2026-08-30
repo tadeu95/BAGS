@@ -20,7 +20,6 @@
     <a href="https://github.com/bge-barcoding/BOLDcuratoR" target="_blank">https://github.com/bge-barcoding/BOLDcuratoR</a>.
   </p>
 
-  <p>
-    <strong>We are currently exploring the feasibility of adapting BAGS to the BOLD v5 API.</strong> This would require updating the data-retrieval workflow and other parts of the application to accommodate the structure and endpoints of the new API. This page will be updated if a compatible version becomes available.
-  </p>
-</div>
+ <p> In light of this, we recommend <strong>BOLDcuratoR</strong>, a tool developed within the <strong>Biodiversity Genomics Europe (BGE)</strong> project for curating barcode data retrieved through the current BOLD infrastructure. Among its features, BOLDcuratoR includes the BAGS A–E grade assignment, alongside additional tools for assessing BIN concordance, ranking specimens, and supporting reference-library curation. </p>
+
+<p> The BOLDcuratoR web application is available at <a href="https://benprice.shinyapps.io/BOLDcuratoR/" target="_blank">https://benprice.shinyapps.io/BOLDcuratoR/</a>, and its source code is available on <a href="https://github.com/bge-barcoding/BOLDcuratoR" target="_blank">GitHub</a>. </p>
